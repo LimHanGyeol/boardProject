@@ -31,7 +31,7 @@ public class Board {
     @Column(name = "writer")
     private String writer;
 
-    @Column(name = "contentDate")
+    @Column(name = "content_date")
     private String contentDate;
 
     @Column(name = "hit")

@@ -32,7 +32,7 @@
                                         <h6 th:text="${board.no}"></h6>
                                     </td>
                                     <td id="boardTitle" align="left">
-                                        <h6 th:text="${board.title}"></h6>
+                                        <a th:href="'/kr/board/posts/'+${board.no}"><h6 th:text="${board.title}"></h6></a>
                                     </td>
                                     <td id="boardWriter">
                                         <h6 th:text="${board.writer}"></h6>
@@ -52,7 +52,7 @@
             </div>
 
             <div class="create-btn" align="right">
-                <a href="/">write</a>
+                <a href="/kr/board/posts">write</a>
             </div>
 
             <div class="board-pagination">
