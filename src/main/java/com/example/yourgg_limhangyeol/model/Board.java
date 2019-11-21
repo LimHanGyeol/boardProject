@@ -47,6 +47,11 @@ public class Board {
         this.hit = hit;
     }
 
+    public void boardUpdate(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
     // 조회수 증가
     public int contentHitIncrease() {
         int hit = this.hit += 1;

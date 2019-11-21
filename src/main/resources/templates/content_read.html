@@ -13,7 +13,6 @@
                     <h2>게시물 읽기</h2>
                 </div>
 
-                <form method="post" action="/kr/board/posts">
                     <div class="row">
                         <h4>제목</h4>
                         <div>
@@ -21,19 +20,20 @@
                         </div>
                         <div>
                             <h6>내용</h6>
+                            <h6 th:text="${board.no}"></h6>
                         </div>
                         <div th:text="${board.content}"></div>
                     </div>
 
                     <div>
-                        <a class="content-update" href="/">수정</a>
+                        <a class="content-update" th:href="'/kr/board/posts/'+${board.no}+'/revision'">수정</a>
                     </div>
 
                     <form class="form-delete" th:action="'/kr/board/posts/'+${board.no}" method="post">
-                        <input type="hidden" name="_method" value="delete">
+                        <input type="hidden" name="_method" value="DELETE">
                         <button type="submit">삭제</button>
                     </form>
-                </form>
+
             </div>
         </div>
     </div>

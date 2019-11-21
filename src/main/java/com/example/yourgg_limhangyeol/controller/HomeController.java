@@ -4,6 +4,7 @@ import com.example.yourgg_limhangyeol.model.Board;
 import com.example.yourgg_limhangyeol.service.board.BoardCreateService;
 import com.example.yourgg_limhangyeol.service.board.BoardDeleteService;
 import com.example.yourgg_limhangyeol.service.board.BoardReadService;
+import com.example.yourgg_limhangyeol.service.board.BoardUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,9 @@ public class HomeController {
     private BoardCreateService boardCreateService;
     @Autowired
     private BoardDeleteService boardDeleteService;
+    @Autowired
+    private BoardUpdateService boardUpdateService;
+
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/")
@@ -40,7 +44,7 @@ public class HomeController {
     @RequestMapping(method = RequestMethod.POST, value = "/kr/board/posts")
     public String contentCreate(String title, String content, Model model) {
         Board board = boardCreateService.contentCreate(title,content);
-        model.addAttribute("content", board);
+        model.addAttribute("board", board);
         return "redirect:/";
     }
 
@@ -51,10 +55,27 @@ public class HomeController {
         return "content_read";
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/kr/board/posts/{no}/revision")
+    public String contentUpdatePage(@PathVariable Long no, Model model) {
+        Board board = boardReadService.getContentPage(no);
+        model.addAttribute("board",board);
+        return "content_update";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, name = "/kr/board/posts/{no}")
+    public String contentUpdate(@PathVariable Long no, String title, String content, Model model) {
+        System.out.println(title);
+        //Board board = boardUpdateService.getContent(no);
+        Board board = boardUpdateService.contentUpdate(no,title,content);
+        model.addAttribute("board",board);
+        return String.format("redirect:/kr/board/posts/%d", no);
+                //String.format("redirect:/kr/board/posts/%d", no);
+    }
+
     @RequestMapping(method = RequestMethod.DELETE, value = "/kr/board/posts/{no}")
     public String contentDelete(@PathVariable Long no) {
-        Board content = boardDeleteService.getContent(no);
-        boardDeleteService.contentDelete(content);
+        //Board content = boardDeleteService.getContent(no);
+        boardDeleteService.contentDelete(no);
         return "redirect:/";
     }
 }

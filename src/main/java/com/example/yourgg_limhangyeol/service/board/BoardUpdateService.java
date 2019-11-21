@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BoardDeleteService {
+public class BoardUpdateService {
 
     @Autowired
     private BoardRepository boardRepository;
@@ -15,9 +15,11 @@ public class BoardDeleteService {
         return boardRepository.findById(no).get();
     }
 
-    public void contentDelete(Long no) {
-        boardRepository.deleteById(no);
+    public Board contentUpdate(Long no, String title, String content) {
+        Board board = getContent(no);
+        board.boardUpdate(title,content);
+        boardRepository.save(board);
+        return board;
     }
-
 
 }
