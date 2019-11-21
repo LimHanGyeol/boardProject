@@ -5,6 +5,60 @@
     <title>YOUR.GG</title>
 </head>
 <body>
+    <div class="main-content-wrapper">
+        <div class="board-table-area">
+            <div class="row">
+                <div class="col-12 col-lg-12">
+                    <div class="board-title">
+                        <h2>게시판</h2>
+                    </div>
 
+                    <div class="board-table">
+                        <table class="table-cell">
+                            <thead>
+                            <tr>
+                                <th scope="col" align="center" style="width: 7%;">NO</th>
+                                <th scope="col" align="center" style="width: 50%;">TITLE</th>
+                                <th scope="col" align="center" style="width: 10%;">NICKNAME</th>
+                                <th scope="col" align="center" style="width: 10%;">DATE</th>
+                                <th scope="col" align="center" style="width: 7%;">HIT</th>
+                            </tr>
+                            </thead>
+
+                            <th:block th:each="board:${boardList}">
+                                <tbody>
+                                <tr>
+                                    <td id="boardNo" align="center">
+                                        <h6 th:text="${board.no}"></h6>
+                                    </td>
+                                    <td id="boardTitle" align="left">
+                                        <a th:href="'/kr/board/posts/'+${board.no}"><h6 th:text="${board.title}"></h6></a>
+                                    </td>
+                                    <td id="boardWriter">
+                                        <h6 th:text="${board.writer}"></h6>
+                                    </td>
+                                    <td id="contentDate">
+                                        <h6 th:text="${board.contentDate}"></h6>
+                                    </td>
+                                    <th id="contentHit">
+                                        <h6 th:text="${board.hit}"></h6>
+                                    </th>
+                                </tr>
+                                </tbody>
+                            </th:block>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="create-btn" align="right">
+                <a href="/kr/board/posts">write</a>
+            </div>
+
+            <div class="board-pagination">
+
+            </div>
+        </div>
+    </div>
 </body>
 </html>
