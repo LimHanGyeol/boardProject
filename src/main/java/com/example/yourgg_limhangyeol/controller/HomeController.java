@@ -6,6 +6,7 @@ import com.example.yourgg_limhangyeol.service.board.BoardDeleteService;
 import com.example.yourgg_limhangyeol.service.board.BoardReadService;
 import com.example.yourgg_limhangyeol.service.board.BoardUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,7 +63,7 @@ public class HomeController {
         return "content_update";
     }
 
-    @RequestMapping(method = RequestMethod.POST, name = "/kr/board/posts/{no}")
+    @RequestMapping(method = RequestMethod.PUT, value = "/kr/board/posts/{no}", produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String contentUpdate(@PathVariable Long no, String title, String content, Model model) {
         System.out.println(title);
         //Board board = boardUpdateService.getContent(no);
