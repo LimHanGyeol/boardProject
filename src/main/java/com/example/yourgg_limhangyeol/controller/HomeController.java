@@ -34,7 +34,7 @@ public class HomeController {
         List<Board> boardList = boardReadService.getBoardList();
         System.out.println(boardList);
         model.addAttribute("boardList", boardList);
-        return "index";
+        return "test";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/kr/board/posts")

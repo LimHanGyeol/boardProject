@@ -1,0 +1,908 @@
+.card-body {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+.logo-image {
+    width: 150px;
+    height: 19px;
+}
+
+.navbar {
+    box-shadow: none !important;
+}
+
+.badge {
+    font-size: 11px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 5px 9px;
+}
+
+.badge-mvp {
+    background-color: #5582E9 !important;
+}
+
+.badge-ace {
+    background-color: #DF3D53 !important;;
+}
+
+.badge-positive {
+    background-color: #5582E9 !important;
+}
+
+.badge-negative {
+    background-color: #DF3D53 !important;;
+}
+
+.bmd-form-group {
+    padding-top: 0 !important;
+}
+
+.was-validated .form-control:invalid:focus,
+.was-validated .form-control:valid:focus,
+.was-validated .is-focused .form-control:valid:focus,
+.was-validated .is-focused .form-control:invalid:focus,
+.form-control.is-invalid:focus,
+.form-control.is-valid:focus {
+    box-shadow: none;
+}
+
+.bg-black {
+    background: black;
+}
+
+.invalid-feedback {
+    text-align: left;
+    color: #f44336;
+    font-size: 0.7rem !important;
+    padding-left: 0.75rem !important;
+}
+
+.bootstrap-select>.dropdown-toggle {
+    padding-left: 0.75rem;
+    font-size: 12px;
+}
+
+.bootstrap-select.btn-group .dropdown-toggle .filter-option {
+    text-transform: none;
+}
+
+input {
+    padding-left: 0.75rem !important;
+}
+
+textarea {
+    padding-left: 0.75rem !important;
+}
+
+.nav-link {
+    text-transform: none !important;
+}
+
+.nav-pills.nav-pills-info .nav-item .nav-link.active,
+.nav-pills.nav-pills-info .nav-item .nav-link.active:focus,
+.nav-pills.nav-pills-info .nav-item .nav-link.active:hover {
+    background-color: #00bcd4;
+    box-shadow: none;
+    color: #fff;
+}
+
+.card {
+    border-radius: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    box-shadow: none !important;
+}
+
+.info-title {
+    font-family: "Helvetica Neue",Helvetica,"Apple SD Gothic Neo",AppleGothic,Dotum,Arial,Tahoma; !important;
+}
+
+footer {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+.nav {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+table {
+    margin-bottom: 0px !important;
+}
+
+table tbody tr td {
+    font-size: 0.75rem !important;
+    font-weight: normal !important;;
+}
+
+table tr td {
+    font-size: 0.75rem !important;
+    font-weight: normal !important;;
+}
+
+td {
+    text-transform: none !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+h2 {
+    margin-top: 10px !important;
+}
+
+h3 {
+    font-size: 1.1rem;
+    margin-top: 10px !important;
+}
+
+h6 {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+    text-transform: none;
+}
+.btn {
+    box-shadow: none !important;
+}
+
+.nav-link.active {
+    box-shadow: none !important;
+}
+
+body {
+    background: #eeeeee;
+    max-width: 1011px;
+    text-align: center;
+    font-weight: normal;
+    margin: 0 auto;
+    font-family: "Apple SD Gothic Neo","나눔고딕","NanumGothic","NanumGothicWebFont","Malgun Gothic","맑은 고딕","Dotum","돋움","Helvetica","sans-serif";
+}
+
+.border-primary {
+    border-color: #9c27b0 !important;
+}
+
+.nav-tabs .nav-item .nav-link {
+    padding: 1.0rem 0.75rem !important;
+    font-size: 0.875rem;
+}
+
+.gg-nav-link-summoner-profile-image {
+    padding: 5px 5px; !important;
+}
+
+.gg-unit {
+    margin-left: 3px;
+}
+
+.gg-hidden {
+    display: none;!important;
+}
+
+.gg-navbar-brand {
+    display: inline-block;
+    position: relative;
+    height: 50px;
+    padding: 15px 0 15px 0px;
+}
+
+.gg-activity-table div {
+    font-weight: normal;
+    font-size: 10px !important;
+    width: 7.69%;
+    margin: 5px 1px 5px 0px !important;
+    padding: 0px;
+    border: 1px solid #6c757d;
+    border-radius: 5px !important;
+}
+
+.gg-friends-table tr td {
+    font-size: 0.75rem;
+}
+
+.gg-mt-1 {
+    margin-top: 1px !important;
+}
+
+.gg-summoner-name {
+    text-transform: none !important;
+}
+
+.gg-center-card-matchlist {
+    margin: 0 0 0 0 !important;
+    padding: 0 0 0 0 !important;
+}
+
+.gg-selected-link {
+    text-decoration: underline;
+}
+
+.gg-line {
+    height: 1px !important;
+    background: #eeeeee;
+}
+
+.radar-graph {
+}
+
+.importance-text {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+    font-weight: 700;
+}
+
+.full-width {
+    width: 80%;
+}
+
+.img-xs {
+    width: 2em;
+    max-width: 32px;
+    padding: 1px 1px 1px 1px;
+}
+
+.gg-text-light-bold {
+    font-weight: 600;
+}
+
+.gg-text-bold {
+    font-weight: 700;
+}
+
+.img-md {
+    max-width: 40px;
+}
+
+.img-circled {
+    border-radius: 50%;
+}
+
+.of-ellipsis {
+    white-space: nowrap;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.gg-matchlist {
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+.gg-matchlist:hover {
+    background-color: #F8F8FF !important;
+    cursor: pointer;
+}
+
+.gg-matchlist-item {
+    line-height: 16px;
+}
+
+.gg-important-text {
+    font-weight: 600 !important;
+    font-size: 1.3rem !important;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.gg-important-text-md {
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.gg-important-text-sm {
+    font-weight: 500 !important;
+    font-size: 0.875rem !important;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.gg-rating-number {
+    font-weight: 600 !important;
+    font-size: 1.3rem !important;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.gg-important-number {
+    font-weight: 600 !important;
+    font-size: 1.3rem !important;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.gg-important-number-sm {
+    font-weight: 600 !important;
+    font-size: 1.0rem !important;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+
+.gg-opacity-50 {
+    opacity: 0.5;
+}
+
+.gg-matchlist-meta-text {
+    color: white;
+    font-size: 0.7rem;
+    padding-left: 2px;
+    padding-right: 2px;
+    font-weight: normal;
+}
+
+.gg-matchlist-summoner-area {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+}
+
+.gg-bg-positive {
+    background-color: #5582E9 !important;
+}
+
+.gg-bg-negative {
+    background-color: #DF3D53 !important;;
+}
+
+.gg-bg-opacity-positive {
+    background-color: rgba(85,130,233, 0.05) !important;
+}
+
+.gg-bg-opacity-negative {
+    background-color: rgba(223,61,83, 0.05) !important;;
+}
+
+.gg-border-positive {
+    border-left: 1px #5582E9 solid;
+}
+
+.gg-border-negative {
+    border-left: 1px #DF3D53 solid;
+}
+
+.gg-bg-brand {
+    background-color: #9c27b0 !important;
+}
+
+.gg-bg-gray {
+    background-color: #eeeeee!important;
+}
+
+.gg-teamluck-bg-positive {
+    background-color: #58AAFF;
+}
+
+.gg-teamluck-bg-soso {
+    background-color: #eeeeee;
+}
+
+.gg-teamluck-bg-negative {
+    background-color: #DF3D53;
+}
+
+.gg-bg-brand {
+    background-color: #9c27b0;
+}
+
+.gg-text-positive {
+    color: #5582E9;
+}
+
+.gg-badge {
+    font-size: 0.7rem;
+}
+
+.gg-text-negative {
+    color: #DF3D53;
+}
+
+.gg-text-soso {
+    color: #6c757d
+}
+
+.gg-text-negative {
+    color: #DF3D53;
+}
+
+.gg-text-brand {
+    color: #9c27b0
+}
+
+.gg-mt-1px {
+    margin-top: 1px !important;
+}
+
+.gg-py-5px {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+.gg-text-uppercase {
+    text-transform: uppercase;
+}
+
+.gg-pointer:hover {
+    cursor: pointer;
+}
+
+.gg-title {
+    display: block;
+    font-size: 0.75rem !important;
+    font-weight: bolder;
+}
+
+.gg-box {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    background: white;
+    #width: 100%;
+}
+
+.gg-transparent-box {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+.gg-matchlist-matchcategory {
+    background: black;
+    position: absolute;
+    z-index:1;
+    text-align: center;
+    font-size:0.7rem;
+    font-weight: bolder;
+    line-height:1.625;
+    width: 1.125rem;
+    height: 1.125rem;
+    top: -0.1rem;
+    left: -0.1rem;
+}
+
+.gg-matchlist-box {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    background: white;
+    width: 100%;
+}
+
+.gg-box-title {
+    display: block;
+    font-size: 0.8rem !important;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+.gg-large-box-title {
+    display: block;
+    font-weight: 600 !important;
+    font-size: 1.3rem !important;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.gg-text-small {
+    font-size: 0.7rem !important;
+}
+
+.gg-exception-text {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.gg-text-normal-color {
+    color: #3C4858;
+}
+
+.gg-text-normal {
+    font-size: 0.75rem !important;
+}
+
+.gg-text-form {
+    color: #999999;
+}
+
+.gg-text-large {
+    font-size: 0.8rem !important;
+}
+
+.gg-text-xlarge {
+    font-size: 1rem !important;
+}
+
+.gg-select {
+    border-radius: 0 !important;
+}
+
+.gg-sub-description {
+    color: #6c757d !important;
+    display: block;
+    font-size: 0.7rem;
+    line-height: 0.7rem;
+    font-weight: normal;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+}
+
+.gg-selected-single-performance {
+    background-color: #b8ecf3 !important;
+}
+
+.gg-exception-description {
+    color: #3C4858;
+    display: block;
+    font-size: 0.8rem;
+    font-weight: bolder;
+}
+
+.gg-matchlist-sub-description {
+    color: #6c757d !important;
+    text-overflow:ellipsis;
+    font-size: 0.7rem;
+    font-weight: normal;
+}
+
+.gg-summoner-navigation-tier {
+    font-size: 0.875rem;
+    font-weight: bold;
+}
+
+.gg-img-12x12 {
+    width: 12px;
+    height: 12px;
+}
+
+.gg-img-15x15 {
+    width: 15px;
+    height: 15px;
+}
+
+.gg-img-18x18 {
+    width: 18px;
+    height: 18px;
+}
+
+.gg-img-20x20 {
+    width: 20px;
+    height: 20px;
+}
+
+.gg-img-24x24 {
+    width: 24px;
+    height: 24px;
+}
+
+.gg-img-25x25 {
+    width: 25px;
+    height: 25px;
+}
+
+.gg-img-30x30 {
+    width: 30px;
+    height: 30px;
+}
+
+.gg-img-35x35 {
+    width: 35px;
+    height: 35px;
+}
+
+.gg-img-40x40 {
+    width: 40px;
+    height: 40px;
+}
+
+.gg-img-50x50 {
+    width: 50px;
+    height: 50px;
+}
+
+.gg-img-70x70 {
+    width: 70px;
+    height: 70px;
+}
+
+.gg-match-tag {
+    background: linear-gradient(180deg, rgba(255,255,255,0) 50%, #FCF4A3 50%);
+}
+
+.gg-sequential-image {
+    margin: 1px 1px 1px 1px;
+}
+
+.gg-nodata-description {
+    display: block;
+    color: gray;
+    font-size: 0.7rem;
+    font-weight: normal;
+}
+
+.gg-division {
+    margin-top: 0.5rem !important;
+}
+
+.gg-small-champion {
+    width: 20px;
+    height: 20px;
+}
+
+.gg-match-champion {
+    width: 40px;
+    height: 40px;
+}
+
+.gg-match-text-content {
+    height: 18px;
+}
+
+.gg-profile-stats td {
+    width: 25% !important;
+}
+
+.gg-text-break {
+    overflow-wrap: break-word;
+}
+.gg-match-sight-object img {
+    width: 12px;
+    height: 12px;
+}
+
+.gg-match-sight-object div span {
+    line-height: 15px;
+    padding-left: 2px;
+    padding-right: 2px;
+    min-width: 18px;
+}
+
+.gg-table-lane {
+    width: 20px;
+    height: 20px;
+}
+
+.flex-grow {
+    flex: 1 0 auto;
+}
+
+.flex-fill {
+    min-height: 100%;height: 100%
+}
+
+.gg-home-visited-summoner {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.gg-champion-select {
+    overflow-y: auto;
+    max-height: 120px;
+}
+
+.gg-duo-data {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.gg-duo-champion-sequential-image {
+    margin: 0.18rem;
+    border: 0;
+}
+
+.gg-duo-champion-selected {
+    border-bottom: 5px #00bcd4 solid !important;
+}
+
+.gg-thin-line {
+    height: 1px;background: #f5f5f5;
+    width: 100%;
+}
+
+.gg-thin-white-line {
+    height: 1px;background: #ffffff;
+    width: 100%;
+}
+
+.gg-division-line {
+    height: 0.5rem;background: #f5f5f5
+}
+
+.gg-tight-y {
+    margin-top: -15px;
+}
+
+.gg-expired {
+    text-decoration: line-through;
+}
+
+.gg-duo-request-table tbody tr td {
+    font-size: 0.8rem !important;
+}
+
+.gg-match-rating i {
+    font-size: 20px !important;
+}
+
+@media (min-width: 1011px) {
+    .gg-left-division {
+        margin-left: 0.5rem !important;
+    }
+
+    .gg-right-division {
+        margin-right: 0.5rem !important;
+    }
+
+    .gg-profile-tier {
+        width: 60px;
+        height: 60px;
+    }
+
+    .gg-match-img {
+        width: 25px;
+        height: 25px;
+        padding: 1px 1px 1px 0px;
+    }
+
+    .gg-match-champion-img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .gg-home-summoner {
+        height: 70px;
+        font-size: 1.5rem;
+    }
+
+    .gg-home-summoner::-ms-clear {
+        display: none;
+    }
+
+    .gg-home-summoner-search {
+        top:0px;
+        right: 8px;
+    }
+
+    .gg-home-summoner-search-icon {
+        font-size: 3rem;
+    }
+
+    .gg-home-visited {
+        width: 20%;
+    }
+
+    .gg-action:hover {
+        background-color: #F8F8FF !important;
+        cursor: pointer;
+    }
+
+    .gg-action-area:hover {
+        background-color: #F8F8FF !important;
+        cursor: pointer;
+    }
+
+    .gg-rating:hover {
+        cursor: pointer;
+    }
+
+    .gg-duo-request-text {
+        font-size: 0.90rem !important;
+    }
+
+    .gg-duo-request-list-title {
+        font-weight: 600 !important;
+        font-size: 1.1rem !important;
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .gg-profile-duo-request-list-title {
+        font-weight: 600 !important;
+        font-size: 1.0rem !important;
+    }
+
+    .gg-footer-riot {
+        margin-top: 1px !important;
+        height: 58px;
+        overflow: hidden
+    }
+}
+
+@media (max-width: 1010px) {
+    .gg-profile-tier {
+        width: 45px;
+        height: 45px;
+    }
+    .navbar-collapse {
+        overflow-y: auto;
+    }
+
+    .gg-mobile-division {
+        margin-top: 0.5rem !important;
+    }
+
+    .gg-mobile-thin-line {
+        margin-top: 0.5rem;
+        border-top: 1px #e5e5e5 solid;
+    }
+
+    .gg-mobile-no-line-row td {
+        border: none;
+    }
+
+    .gg-cloud {
+        width: 100%;
+        height: 250px;
+    }
+
+    .nav-pills .nav-item .nav-link {
+        min-width: 0px !important;
+    }
+
+    .gg-match-img {
+        width: 20px;
+        height: 20px;
+        padding: 1px 1px 1px 1px;
+    }
+
+    .gg-match-champion-img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .gg-home-summoner {
+        height: 50px;
+        font-size: 1.5rem;
+    }
+
+    .gg-home-summoner-search {
+        top:0px;
+        right: 8px;
+    }
+
+    .gg-home-summoner-search-icon {
+        font-size: 2rem;
+    }
+
+    .gg-home-visited {
+        width: 50%;
+    }
+
+    .gg-duo-request-text {
+        font-size: 0.875rem !important;
+    }
+
+    .gg-duo-request-list-title {
+        font-weight: 600 !important;
+        font-size: 0.9rem !important;
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .gg-profile-duo-request-list-title {
+        font-weight: 600 !important;
+        font-size: 0.75rem !important;
+    }
+
+    .gg-matchlist-menu {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+div {
+    #border: red 0px solid !important;
+}
