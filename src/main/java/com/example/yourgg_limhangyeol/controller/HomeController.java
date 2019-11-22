@@ -28,13 +28,12 @@ public class HomeController {
     private BoardUpdateService boardUpdateService;
 
 
-
     @RequestMapping(method = RequestMethod.GET, value = "/")
     public String home(Model model) {
         List<Board> boardList = boardReadService.getBoardList();
         System.out.println(boardList);
         model.addAttribute("boardList", boardList);
-        return "test";
+        return "index";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/kr/board")
@@ -42,19 +41,20 @@ public class HomeController {
         List<Board> boardList = boardReadService.getBoardList();
         System.out.println(boardList);
         model.addAttribute("boardList", boardList);
-        return "test_board";
+        return "board";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/kr/board/posts")
-    public String contentPage() {
-        return "content_create";
+    public String contentCreatePage() {
+        return "test_create";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/kr/board/posts")
     public String contentCreate(String title, String content, Model model) {
+        System.out.println(title);
         Board board = boardCreateService.contentCreate(title,content);
         model.addAttribute("board", board);
-        return "redirect:/";
+        return "redirect:/kr/board";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/kr/board/posts/{no}")

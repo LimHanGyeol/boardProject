@@ -1,64 +1,593 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>YOUR.GG</title>
+    <!-- 헤더 인클루드 -->
+    <th:block th:replace="include/include_head"></th:block>
+
+    <link rel="canonical" href="//your.gg/"/>
+    <link rel="alternate" hreflang="x-default" href="//your.gg/">
+    <link rel="alternate" hreflang="en-us" href="//your.gg/?lang=en">
+    <link rel="alternate" hreflang="ko-kr" href="//your.gg/?lang=ko">
+    <link rel="alternate" hreflang="ja" href="//your.gg/?lang=ja">
+
 </head>
-<body>
-    <div class="main-content-wrapper">
-        <div class="board-table-area">
-            <div class="row">
-                <div class="col-12 col-lg-12">
-                    <div class="board-title">
-                        <h2>게시판</h2>
-                    </div>
-
-                    <div class="board-table">
-                        <table class="table-cell">
-                            <thead>
-                            <tr>
-                                <th scope="col" align="center" style="width: 7%;">NO</th>
-                                <th scope="col" align="center" style="width: 50%;">TITLE</th>
-                                <th scope="col" align="center" style="width: 10%;">NICKNAME</th>
-                                <th scope="col" align="center" style="width: 10%;">DATE</th>
-                                <th scope="col" align="center" style="width: 7%;">HIT</th>
-                            </tr>
-                            </thead>
-
-                            <th:block th:each="board:${boardList}">
-                                <tbody>
-                                <tr>
-                                    <td id="boardNo" align="center">
-                                        <h6 th:text="${board.no}"></h6>
-                                    </td>
-                                    <td id="boardTitle" align="left">
-                                        <a th:href="'/kr/board/posts/'+${board.no}"><h6 th:text="${board.title}"></h6></a>
-                                    </td>
-                                    <td id="boardWriter">
-                                        <h6 th:text="${board.writer}"></h6>
-                                    </td>
-                                    <td id="contentDate">
-                                        <h6 th:text="${board.contentDate}"></h6>
-                                    </td>
-                                    <th id="contentHit">
-                                        <h6 th:text="${board.hit}"></h6>
-                                    </th>
-                                </tr>
-                                </tbody>
-                            </th:block>
-                        </table>
-                    </div>
+<body style="height: 100%">
+<div style="min-height: 100%; margin: 0 auto -132px" class="bg-white">
+    <!--상단 보라색 설문 네비게이션-->
+    <div class="alert alert-primary mb-2">
+        <div class="container text-left">
+            <div class="d-flex align-items-center">
+                <div class="alert-icon">
+                    <i class="material-icons">info_outline</i>
                 </div>
-            </div>
-
-            <div class="create-btn" align="right">
-                <a href="/kr/board/posts">write</a>
-            </div>
-
-            <div class="board-pagination">
-
+                <div>
+                    <a href="https://forms.gle/FF5FfweHXRTLT7Kz7" target="_blank">프리미엄 서비스 설문조사</a>
+                </div>
             </div>
         </div>
     </div>
+    <!--듀오검색 및 신청 기능 네비게이션-->
+    <nav class="navbar navbar-expand-lg bg-white mb-0 pb-0 pt-0">
+        <div class="container-fluid">
+            <div class="navbar-translate">
+                <a class="gg-navbar-brand" href="/">
+
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse bg-white px-0 px-lg-2">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="/kr/duo/search" class="nav-link pl-2 pl-lg-0">
+                            <i class="material-icons py-1">search</i>
+                            듀오 검색
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/kr/duo/request" class="nav-link pl-2">
+                            <i class="material-icons py-1">edit</i>
+                            듀오 신청
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/kr/duo/request" class="nav-link pl-2">
+                            <i class="material-icons py-1">sports_kabaddi</i>
+                            영웅 밸런스 토론장
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://github.com/LimHanGyeol/boardProject" class="nav-link pl-2">
+                            <i class="material-icons py-1">spa</i>
+                            HanGyeol Homework
+                        </a>
+                    </li>
+                </ul>
+
+                <form id="globalNavigationForm" class="navbar-nav form-inline ml-auto">
+                    <div class="form-group col-lg-auto p-0 m-0 mb-lg-2 mr-lg-2" style="z-index: 2">
+                        <label for="langSelect"></label><select class="form-control selectpicker my-0"
+                                                                data-style="btn btn-link rounded-0"
+                                                                id="langSelect">
+
+                        <option value="ko" selected>한국어</option>
+
+                        <option value="ja">日本語</option>
+
+                        <option value="en">English</option>
+
+                        <option value="es">español</option>
+
+                    </select>
+                    </div>
+
+                    <div class="form-group col-lg-auto p-0 m-0 mb-lg-2" style="z-index: 1">
+                        <select class="form-control selectpicker my-0" data-style="btn btn-link rounded-0"
+                                id="regionSelectHome">
+
+                            <option value="br">BR</option>
+
+                            <option value="lan">LAN</option>
+
+                            <option value="las">LAS</option>
+
+                            <option value="oce">OCE</option>
+
+                            <option value="na">NA</option>
+
+                            <option value="eune">EUNE</option>
+
+                            <option value="euw">EUW</option>
+
+                            <option value="ru">RU</option>
+
+                            <option value="tr">TR</option>
+
+                            <option value="jp">JP</option>
+
+                            <option value="kr" selected>KR</option>
+
+                        </select>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!--기여자 항목 레이아웃-->
+    <div class="row no-gutters gg-box gg-text-normal">
+        <div class="col-9">
+        </div>
+        <div class="col-3 d-flex align-items-center justify-content-end pr-2">
+            <i class="material-icons py-1 gg-text-normal pr-1">people</i>
+            <a href="/kr/guide/contributor" class="text-secondary">기여자</a>
+        </div>
+    </div>
+
+    <!--Live 듀오 기능의 레이아웃 범위까지 담고있음-->
+    <div class="container-fluid gg-text-normal">
+        <!--YOUR.GG 로고-->
+        <img class="logo-image mt-2" src="/static/img/yourgg-logo.png" style="width: 300px;height: 35px">
+        <!--LOL 유저명 서치바-->
+        <div class="row no-gutters mt-4 form-group" style="padding-top: 0px !important; margin-bottom: 0px !important;">
+            <div class="col-10 col-lg-8 px-2 bg-white mx-auto pb-1">
+                <input id="summonerNameText" type="text" class="form-control gg-home-summoner"
+                       placeholder="KR Summoner">
+                <div class="input-group-prepend position-absolute gg-home-summoner-search" id="searchButton">
+                        <span class="input-group-text">
+                            <i class="material-icons gg-pointer gg-home-summoner-search-icon">
+                            search
+                            </i>
+                        </span>
+                </div>
+            </div>
+        </div>
+        <!--잘 모르겠음 검색 내역 추가 기능인가 ?-->
+        <div class="row no-gutters">
+            <div class="col-10 col-lg-8 mx-auto">
+                <div id="content" class="d-flex flex-wrap justify-content-start">
+                </div>
+            </div>
+        </div>
+        <!--메인 광고바-->
+        <div class="row ad">
+            <div class="col-lg-12 ml-0 mr-0 pl-0 pr-0">
+                <div class="pt-2 text-center">
+                    <div style="margin-left:20.5px;margin-right: 20.5px">
+                        <ins class="adsbygoogle"
+                             style="display: block; width: 970px; height: 250px;"
+                             data-ad-client="ca-pub-7895542192161438"
+                             data-ad-slot="3087166954"
+                             data-full-width-responsive="true">
+                            <img src="/static/img/main_advertisement.png">
+
+                        </ins>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Live 듀오 햄버거 버튼 레이아웃-->
+        <div class="row gg-division">
+            <div class="col-lg-2 bg-white"></div>
+            <div class="col-8">
+                <div class="gg-large-box-title col-12 px-0 d-flex align-items-center justify-content-start">
+                    <div><i class="material-icons">list</i></div>
+                    <div class="px-2">영웅 밸런스 토론장</div>
+                </div>
+            </div>
+            <div class="col-lg-2 bg-white"></div>
+        </div>
+
+        <!--Live 듀오 구하기 게시판의 게시물 범위 레이아웃-->
+        <div class="row gg-division">
+            <div class="col-lg-2 bg-white"></div>
+            <div class="col-lg-8 bg-white gg-action-areas">
+
+                <!--아이템1 div 시작-->
+                <th:block th:each="board:${boardList}">
+                <div class="d-flex flex-column w-100 gg-action p-2">
+                     <!--data-event="DuoRequestProfile"-->
+                     <!--data-href="/kr/profile/%ED%8C%A8%EC%9E%91%EC%95%84%EB%8B%88%EA%B3%A0%ED%8C%80%EC%9A%B4%EC%9E%84">-->
+                    <div class="d-flex align-items-center gg-duo-request-list-title">
+                        <!--<div class="aa">솔로랭크 아이언1</div>-->
+                        <div class="px-1"></div>
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <a th:href="'/kr/board/posts/'+${board.no}"><h6 th:text="${board.title}"></h6></a>
+                            </div>
+                        </div>
+                        <div class="px-1"></div>
+
+                        <div class="px-1"></div>
+                    </div>
+                    <div class="d-flex gg-duo-request-text text-secondary text-left py-2" th:text="${board.content}">
+
+                    </div>
+                    <div class="d-flex gg-text-large justify-content-end pt-2">
+                        <div><i class="material-icons gg-text-large">person</i>
+                            <span class="gg-text-normal-color" th:text="${board.writer}"></span>
+                        </div>
+                        <div class="px-2"></div>
+                        <div th:text="${board.contentDate}"><i class="material-icons gg-text-large">alarm_on</i>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end gg-sub-description" th:text="${board.hit}"></div>
+                </div>
+                </th:block>
+                <!--아이템1 div 끝-->
+                <!--아이템1을 구분하는 여백 margin top 0.5rem-->
+                <div class="gg-thin-line my-2"></div>
+
+            </div>
+            <div class="col-lg-2 bg-white"></div>
+        </div>
+        <!--게시물 더보기 항목 / 상세보기 및 해당 게시판의 페이지로 보내면 될듯-->
+        <div class="row gg-division">
+            <div class="col-lg-12 mb-2">
+                <a class="btn btn-info rounded-0" href="/kr/board">더 보기</a>
+            </div>
+        </div>
+
+        <div class="push" style="height: 132px"></div>
+    </div>
+</div>
+<!--아직 뭔지 모르겠음-->
+<div id="template" class="collapse">
+    <div class="gg-home-visited bg-white">
+        <div class="row no-gutters align-items-center">
+            <div class="col-10 px-0 gg-summoner-history gg-action" data-href="/kr/profile/summonerNameForLink"
+                 data-event="VisitationHistory">
+                    <span class="text-secondary p-2 gg-summoner-name gg-home-visited-summoner w-100 text-truncate rounded-0 d-flex align-items-center">
+                        <i class="gg-pointer text-primary material-icons gg-text-normal py-1 pr-2">face</i>
+                        summonerName
+                    </span>
+            </div>
+            <div class="col-2 px-0 gg-action py-2 gg-summoner-remove" data-name="summonerName">
+                <i class="material-icons gg-text-large">close</i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="gg-thin-line"></div>
+
+<!--푸터 div-->
+<th:block th:replace="include/include_footer"></th:block>
+<!--푸터 div 끝-->
+
+<!--어디에 쓰이는 모달인지 모르겠음-->
+<div class="modal" tabindex="-1" role="dialog" data-keyboard="false">
+    <div class="mt-0 modal-dialog modal-dialog-centered justify-content-center" role="document">
+        <span class="fa fa-spinner fa-spin fa-3x"></span>
+    </div>
+</div>
+
+<!--자바스크립트-->
+<script src="https://s3-ap-northeast-1.amazonaws.com/ggtics-static/material-pro/assets/js/core/jquery.min.js"
+        type="text/javascript"></script>
+<script src="https://s3-ap-northeast-1.amazonaws.com/ggtics-static/material-pro/assets/js/core/popper.min.js"
+        type="text/javascript"></script>
+<script src="https://s3-ap-northeast-1.amazonaws.com/ggtics-static/material-pro/assets/js/core/bootstrap-material-design.min.js"
+        type="text/javascript"></script>
+<script src="https://s3-ap-northeast-1.amazonaws.com/ggtics-static/material-pro/assets/js/material-kit.min.js?v=2.1.1"
+        type="text/javascript"></script>
+<script src="https://s3-ap-northeast-1.amazonaws.com/ggtics-static/material-pro/assets/js/plugins/bootstrap-selectpicker.js"
+        type="text/javascript"></script>
+<script src="/v4/js/pack.js?q=1574328100936" type="text/javascript"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-72139051-3"></script>
+<!--대충 JSON 및 Jquery로 쿠키 및 보안 작업 하는 자바스크립트인듯 ?-->
+<script type="text/javascript">
+    !function(a){"function"==typeof define&&define.amd?define(["jquery"],a):"object"==typeof exports?a(require("jquery")):a(jQuery)}(function(a){function b(a){return h.raw?a:encodeURIComponent(a)}function c(a){return h.raw?a:decodeURIComponent(a)}function d(a){return b(h.json?JSON.stringify(a):String(a))}function e(a){0===a.indexOf('"')&&(a=a.slice(1,-1).replace(/\\"/g,'"').replace(/\\\\/g,"\\"));try{return a=decodeURIComponent(a.replace(g," ")),h.json?JSON.parse(a):a}catch(b){}}function f(b,c){var d=h.raw?b:e(b);return a.isFunction(c)?c(d):d}var g=/\+/g,h=a.cookie=function(e,g,i){if(void 0!==g&&!a.isFunction(g)){if(i=a.extend({},h.defaults,i),"number"==typeof i.expires){var j=i.expires,k=i.expires=new Date;k.setTime(+k+864e5*j)}return document.cookie=[b(e),"=",d(g),i.expires?"; expires="+i.expires.toUTCString():"",i.path?"; path="+i.path:"",i.domain?"; domain="+i.domain:"",i.secure?"; secure":""].join("")}for(var l=e?void 0:{},m=document.cookie?document.cookie.split("; "):[],n=0,o=m.length;o>n;n++){var p=m[n].split("="),q=c(p.shift()),r=p.join("=");if(e&&e===q){l=f(r,g);break}e||void 0===(r=f(r))||(l[q]=r)}return l};h.defaults={},a.removeCookie=function(b,c){return void 0===a.cookie(b)?!1:(a.cookie(b,"",a.extend({},c,{expires:-1})),!a.cookie(b))}});
+</script>
+<!--뭔지 모르겠음-->
+<script type="text/javascript">
+    var page = 'Home';
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    function pageview(uri) {
+        var v;
+        if (uri == undefined) {
+            v = '';
+        } else {
+            v = uri;
+        }
+
+        gtag('config', 'UA-72139051-3', {'page_path' : uri});
+    }
+
+
+    pageview('V4-' + page);
+
+
+    function interaction(t) {
+        if (t != undefined) {
+            var eventName = page + "-" + t;
+
+            gtag('event', 'click', {'event_category': eventName});
+        }
+    }
+
+    window.onerror = function(message, source, lineno, colno, error) {
+        var summary = 'JSError(' + source + ') ' + lineno + " - " + error;
+
+        gtag('event', 'JSError', {'event_category': summary});
+        gtag('event', 'exception', {'exDescription': summary, 'exFatal': true});
+    }
+</script>
+<!--정규식 및 유효성 검사로 추정-->
+<script type="text/javascript">
+    var base = "";
+    var urlPrefix = "/" + $("#regionSelect").val() + base;
+    var app = false;
+    var mobile = false;
+    var pc = true;
+    var commonError = '불편을 드려 죄송합니다. 오류가 발생하여 페이지를 표시할 수 없습니다.';
+    var rateLimitError = '일시적으로 라이엇 데이터 사용량을 초과하여 서비스 할 수 없습니다. 약 10초 후에 다시 시도해주세요.';
+    var invalidRating = '평점을 선택해주세요.';
+    var positiveColor = '#5582E9';
+    var negativeColor = '#DF3D53';
+    var brandColor = '#9c27b0';
+    var globalNavigationSummonerNameText = $("#globalNavigationSummonerNameText");
+    var profileMatchClientCacheKey = "profileMatch";
+    var profileMatchSummonerIdClientCacheKey = "profileMatchSummonerId";
+    var profileMatchClientCacheUpdatable = true;
+    var defaultCookieOption = {expires: 365 * 10};
+
+    $(".gg-action-areas").on("click", function(e) {
+        var target = $(e.target);
+        var listItem = target.closest(".gg-action");
+        var link = listItem.data("href");
+        var event = listItem.data("event");
+        if (event != undefined) {
+            interaction("Link-" + event);
+        }
+        if (link != undefined) {
+            location.href = link;
+            e.stopPropagation();
+        }
+    });
+
+    $('body').on('click','.gg-action-area',function(e) {
+        var link = $(this).data("href");
+        var event = $(this).data("event");
+        if (event != undefined) {
+            interaction("Link-" + event);
+        }
+
+        if (link != undefined) {
+            location.href = link;
+        }
+        e.stopPropagation();
+    });
+
+    $('body').on('click','a',function(e) {
+        var event = $(this).data("event");
+        if (event != undefined) {
+            interaction(event);
+        }
+    });
+
+    function moveToProfile(summonerName) {
+        var region = $("#regionSelect").val() ? $("#regionSelect").val() : $("#regionSelectHome").val();
+        location.href = "/" + region + base + "/profile/" + encodeURIComponent(summonerName);
+    }
+
+    function showModal() {
+        $(".modal").modal("show");
+    }
+
+    function hideModal() {
+        $(".modal").modal("hide");
+    }
+
+    function loadUnloadedAds() {
+        (adsbygoogle = window.adsbygoogle || []).onload = function () {
+            [].forEach.call(document.getElementsByClassName('adsbygoogle'), function (e) {
+                if ($(e).data("adsbygoogle-status") != "done") adsbygoogle.push({})
+            })
+        }
+    }
+
+    $(window).on("load", function() {
+        $("#globalNavigationSearchButton").on("click", function() {
+            moveToProfile(globalNavigationSummonerNameText.val());
+        });
+
+        $("#globalNavigationForm").on("submit", function(e) {
+            moveToProfile(globalNavigationSummonerNameText.val());
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+        $("#profileUpdateBtn").on("click", function(e) {
+            var that = $(this);
+            var url = that.data("href");
+            var refreshUrl = that.data("refresh-href");
+            that.hide();
+            $("#profileUpdateProgressBtn").show();
+            e.preventDefault();
+            $.ajax({url: url, success: function(result) {
+                    window.sessionStorage.removeItem(profileMatchClientCacheKey);
+                    profileMatchClientCacheUpdatable = false;
+                    window.sessionStorage.removeItem("tabData");
+                    window.sessionStorage.clear();
+
+                    location.href=refreshUrl;
+                }, error: function() {
+                    that.show();
+                    $("#profileUpdateProgressBtn").hide();
+                    alert(commonError);
+                }});
+        });
+
+
+        $("#langSelect").on("change", function (e) {
+            window.sessionStorage.removeItem(profileMatchClientCacheKey);
+            profileMatchClientCacheUpdatable = false;
+            var newLang = this.value;
+            var url = document.location.href
+                .replace(/lang=[a-zA-Z_]+/, "")
+                .replace(/[\?\&]$/, "");
+            if (url.indexOf('?') > -1) {
+                document.location = url + "&lang=" + newLang;
+            } else {
+                document.location = url + "?lang=" + newLang;
+            }
+            e.stopPropagation();
+        });
+
+        $("#regionSelectHome").on("change", function (e) {
+            var newRegion = this.value;
+            $.cookie("userPrefRegion", newRegion, defaultCookieOption);
+            document.location = "/" + newRegion + base;
+            e.stopPropagation();
+        });
+
+
+        $(".single-performance").on("click", function( index ) {
+            var id = $(this).data("id");
+            if (id != undefined) {
+                $(".single-performance").removeClass("gg-selected-single-performance");
+                $("." + id).addClass("gg-selected-single-performance");
+            }
+        });
+
+        $("#ratingBtn").on("click", function( index ) {
+            var that = $(this);
+            if ($("#rating").val() == '') {
+                alert(invalidRating);
+                return;
+            }
+            $.ajax({url: that.data("url") + "?score=" + $("#rating").val(), success: function(result) {
+                    interaction("Submit-Rating");
+                    $("#ratingArea").html(result).hide().show("slow");
+                    $('.rating').addRating();
+                }, error: function(result) {
+                    if (result.status == 403) {
+                        alert(result.responseText);
+                    } else {
+                        alert(commonError);
+                    }
+                }});
+        });
+
+        loadUnloadedAds();
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+
+        $('[data-show-interaction]').each(function() {
+            interaction("Show-" + $(this).data("show-interaction"));
+        });
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+
+        setTimeout(function () {
+            try {
+                (function(t, l) {
+                    var w = window,
+                        d = document,
+                        s = d.createElement('script');
+                    s.type = 'text/javascript';
+                    s.async = true;
+                    s.defer = true;
+                    s.src = l;
+                    $("body").append(s);
+
+                    w[t] = w[t] || function() {
+                        (w["_rgea"] = w["_rgea"] || [
+                            ["uts", new Date()]
+                        ]).push(Array.prototype.slice.call(arguments));
+                        w.RGEA && w.RGEA.p();
+                    }
+                })("rgea", "https://static.developer.riotgames.com/js/rgea.min.js");
+
+                rgea("propertyId", "RGEA0002-005f62d2-a82e-439d-8b59-490432951311");
+                rgea("lolpid", "kr"); // league platform id (na1, la2, euw1, kr, etc)
+
+
+                rgea("anonymous", true); // defaults to true
+
+            } catch(e) {
+            }
+        }, 2000);
+
+    });
+</script>
+<!--검색내역으로 추정됨-->
+<script type="text/javascript">
+    var summonerNameForLink = "";
+    var summonerHistoryClientCacheKey = "summonerHistoryClientCacheKey"
+
+    if ($.trim($.cookie("v")) != "") {
+        $.cookie("v").split(",").forEach(function (e) {
+            if ($.trim(e) != "") {
+                var html = $("#template").html();
+                var parsedHtml = html.replace(/summonerNameForLink/gm, encodeURIComponent(e)).replace(/summonerName/gm, e);
+                $("#content").append(parsedHtml);
+            }
+        });
+    }
+
+    $("#content").on("click", function(e) {
+        var target = $(e.target);
+        var listItem = target.closest(".gg-summoner-remove");
+        if (listItem != undefined) {
+            var name = listItem.data("name");
+            listItem.parent().parent().hide();
+            $.cookie("v", $.cookie("v").replace(name + ",", ''), defaultCookieOption);
+            $.cookie("v", $.cookie("v").replace(name, ''), defaultCookieOption);
+        }
+    });
+
+    $("#content").on("click", function(e) {
+        var target = $(e.target);
+        var listItem = target.closest(".gg-summoner-history");
+        if (listItem != undefined) {
+            var link = listItem.data("href");
+            var event = listItem.data("event");
+            if (event != undefined) {
+                interaction("Link-" + event);
+            }
+            if (link != undefined) {
+                location.href = link;
+                e.stopPropagation();
+            }
+        }
+    });
+
+    $(window).on("load", function() {
+        $("#searchButton").on("click", function () {
+            moveToProfile($("#summonerNameText").val())
+        });
+
+        $("#summonerNameText").on("keypress", function (e) {
+            var key = e.keyCode || e.which;
+            if (key == 13) {
+                moveToProfile($("#summonerNameText").val());
+                return false;
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
