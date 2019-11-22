@@ -37,6 +37,14 @@ public class HomeController {
         return "test";
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/kr/board")
+    public String boardPage(Model model) {
+        List<Board> boardList = boardReadService.getBoardList();
+        System.out.println(boardList);
+        model.addAttribute("boardList", boardList);
+        return "test_board";
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/kr/board/posts")
     public String contentPage() {
         return "content_create";
@@ -54,6 +62,8 @@ public class HomeController {
         Board board = boardReadService.getContentPage(no);
         model.addAttribute("board",board);
         return "content_read";
+                //"test_board";
+
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/kr/board/posts/{no}/revision")
