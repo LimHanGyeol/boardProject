@@ -69,7 +69,7 @@ public class HomeController {
     public String contentUpdatePage(@PathVariable Long no, Model model) {
         Board board = boardReadService.getContentPage(no);
         model.addAttribute("board",board);
-        return "content_update";
+        return "posts_update";
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/kr/board/posts/{no}", produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
