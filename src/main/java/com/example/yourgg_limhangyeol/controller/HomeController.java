@@ -46,7 +46,7 @@ public class HomeController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/kr/board/posts")
     public String contentCreatePage() {
-        return "test_create";
+        return "posts_create";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/kr/board/posts")
@@ -61,8 +61,7 @@ public class HomeController {
     public String contentPage(@PathVariable Long no, Model model) {
         Board board = boardReadService.getContentPage(no);
         model.addAttribute("board",board);
-        return "content_read";
-                //"test_board";
+        return "posts_read";
 
     }
 
