@@ -28,7 +28,6 @@ public class HomeController {
     private BoardUpdateService boardUpdateService;
 
 
-
     @RequestMapping(method = RequestMethod.GET, value = "/")
     public String home(Model model) {
         List<Board> boardList = boardReadService.getBoardList();
@@ -37,30 +36,40 @@ public class HomeController {
         return "index";
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/kr/board")
+    public String boardPage(Model model) {
+        List<Board> boardList = boardReadService.getBoardList();
+        System.out.println(boardList);
+        model.addAttribute("boardList", boardList);
+        return "board";
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/kr/board/posts")
-    public String contentPage() {
-        return "content_create";
+    public String contentCreatePage() {
+        return "posts_create";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/kr/board/posts")
     public String contentCreate(String title, String content, Model model) {
+        System.out.println(title);
         Board board = boardCreateService.contentCreate(title,content);
         model.addAttribute("board", board);
-        return "redirect:/";
+        return "redirect:/kr/board";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/kr/board/posts/{no}")
     public String contentPage(@PathVariable Long no, Model model) {
         Board board = boardReadService.getContentPage(no);
         model.addAttribute("board",board);
-        return "content_read";
+        return "posts_read";
+
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/kr/board/posts/{no}/revision")
     public String contentUpdatePage(@PathVariable Long no, Model model) {
         Board board = boardReadService.getContentPage(no);
         model.addAttribute("board",board);
-        return "content_update";
+        return "posts_update";
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/kr/board/posts/{no}", produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

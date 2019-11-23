@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 헤더 인클루드 -->
+    <th:block th:replace="include/include_head"></th:block>
+
+    <link rel="canonical" href="//your.gg/kr/duo/request"/>
+    <link rel="alternate" hreflang="x-default" href="//your.gg/kr/duo/request">
+    <link rel="alternate" hreflang="en-us" href="//your.gg/kr/duo/request?lang=en">
+    <link rel="alternate" hreflang="ko-kr" href="//your.gg/kr/duo/request?lang=ko">
+    <link rel="alternate" hreflang="ja" href="//your.gg/kr/duo/request?lang=ja">
+
+</head>
+<body>
+<!--모달 어느부분인지 아직 확인 불가능-->
+<div class="modal" tabindex="-1" role="dialog" data-keyboard="false">
+    <div class="mt-0 modal-dialog modal-dialog-centered justify-content-center" role="document">
+        <span class="fa fa-spinner fa-spin fa-3x"></span>
+    </div>
+</div>
+
+<!--상단 보라색 설문 네비게이션-->
+<div class="alert alert-primary mb-2">
+    <div class="container text-left">
+        <div class="d-flex align-items-center">
+            <div class="alert-icon">
+                <i class="material-icons">info_outline</i>
+            </div>
+            <div>
+                <a href="https://forms.gle/FF5FfweHXRTLT7Kz7" target="_blank">프리미엄 서비스 설문조사</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--듀오검색 및 신청 기능 네비게이션-->
+<nav class="navbar navbar-expand-lg bg-white mb-0 pb-0 pt-0">
+    <div class="container-fluid">
+        <div class="navbar-translate">
+            <a class="gg-navbar-brand" href="/">
+
+                <img class="logo-image" src="/static/img/yourgg-logo.png"/><sup><i class="gg-text-bold">Beta</i></sup>
+
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse bg-white px-0 px-lg-2">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="/kr/duo/search" class="nav-link pl-2 pl-lg-0">
+                        <i class="material-icons py-1">search</i>
+                        듀오 검색
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kr/duo/request" class="nav-link pl-2">
+                        <i class="material-icons py-1">edit</i>
+                        듀오 신청
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/kr/duo/request" class="nav-link pl-2">
+                        <i class="material-icons py-1">sports_kabaddi</i>
+                        영웅 밸런스 토론장
+                    </a>
+                </li>
+            </ul>
+
+            <form id="globalNavigationForm" class="navbar-nav form-inline ml-auto">
+                <div class="form-group col-lg-auto p-0 m-0 mb-lg-2 mr-lg-2" style="z-index: 2">
+                    <select class="form-control selectpicker my-0" data-style="btn btn-link rounded-0" id="langSelect">
+
+                        <option value="ko" selected>한국어</option>
+
+                        <option value="ja">日本語</option>
+
+                        <option value="en">English</option>
+
+                        <option value="es">español</option>
+
+                    </select>
+                </div>
+
+
+                <div class="form-group col-lg-auto p-0 m-0 mb-lg-2" style="z-index: 1">
+                    <select class="form-control selectpicker my-0" data-style="btn btn-link rounded-0"
+                            id="regionSelect">
+
+                        <option value="br">BR</option>
+
+                        <option value="lan">LAN</option>
+
+                        <option value="las">LAS</option>
+
+                        <option value="oce">OCE</option>
+
+                        <option value="na">NA</option>
+
+                        <option value="eune">EUNE</option>
+
+                        <option value="euw">EUW</option>
+
+                        <option value="ru">RU</option>
+
+                        <option value="tr">TR</option>
+
+                        <option value="jp">JP</option>
+
+                        <option value="kr" selected>KR</option>
+
+                    </select>
+                </div>
+                <div class="form-group col-lg-auto p-0 m-0 bmd-form-group mb-lg-2">
+                    <input id="globalNavigationSummonerNameText" type="text" class="form-control w-100"
+                           placeholder="Search Summoner">
+                </div>
+                <button id="globalNavigationSearchButton" type="button"
+                        class="btn btn-raised btn-fab btn-round my-2 my-lg-0">
+                    <i class="material-icons">search</i>
+                </button>
+
+            </form>
+        </div>
+    </div>
+</nav>
+
+<!--기여자 항목 레이아웃-->
+<div class="row no-gutters gg-box gg-text-normal">
+    <div class="col-9">
+    </div>
+    <div class="col-3 d-flex align-items-center justify-content-end pr-2">
+        <i class="material-icons py-1 gg-text-normal pr-1">people</i>
+        <a href="/kr/guide/contributor" class="text-secondary">기여자</a>
+    </div>
+</div>
+
+<!--메인 컨테이너 div / 메인 광고바의 자연스러운 색을 위해 흰색 배경색 지정-->
+<div class="container-fluid gg-text-normal bg-white">
+
+        <div class="row gg-division">
+            <div class="col-lg-2 bg-white"></div>
+            <div class="col-12 col-lg-8">
+                <div class="row gg-box">
+                    <div class="col-12 px-0">
+                        <div class="gg-large-box-title col-12 px-0 d-flex align-items-center justify-content-start">
+                            <div><i class="material-icons">create</i></div>
+                            <div class="px-2 gg-important-text">수정하기</div>
+                        </div>
+                    </div>
+                    <form class="col-12 px-0 mb-0" autocomplete="off" novalidate method="post" th:action="'/kr/board/posts/'+${board.no}">
+                    <!--카테고리-->
+                    <div class="col-12 col-lg-6 px-0">
+                        <select class="form-control selectpicker my-0" data-style="btn btn-link gg-select"
+                        id="duoRequestMatchCategorySelect">
+                        <option value="SoloRank">
+                        영웅 밸런스 토론
+                        </option>
+                        <option value="FreeRank">
+                        패치노트
+                        </option>
+                        </select>
+                    </div>
+                    <!--작성자-->
+                    <div class="col-12 px-0 mt-3">
+                    <div class="input-group">
+                    <input id="writer" name="writer" type="text" value="" class="form-control border-0"
+                    placeholder="소환사명" th:value="${board.writer}" required>
+                    <div class="invalid-feedback">
+                    YOUR.GG에 등록된 소환사명을 입력해주세요.
+                    </div>
+                    </div>
+                    </div>
+
+                    <!--제목-->
+                    <div class="col-12 px-0 mt-3">
+                        <div class="input-group">
+                            <input id="title" name="title" type="text" value="" class="form-control border-0"
+                                   placeholder="제목" th:value="${board.title}" required>
+                            <div class="invalid-feedback">
+                                제목을 입력해주세요.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--내용-->
+                    <div class="col-12 px-0">
+                    <div class="input-group">
+                    <textarea class="form-control mt-2" id="content" name="content" maxlength="1000" rows="2"
+                    placeholder="1000자 이내 내용을 입력해주세요." th:text="${board.content}"></textarea>
+                    <div class="invalid-feedback">
+                    내용을 입력해주세요.
+                    </div>
+                    </div>
+                    </div>
+
+                    <div class="col-12 px-0 bg-white">
+                        <a id="PreviousBtn" class="btn btn-info rounded-0" th:href="'/kr/board/posts/'+${board.no}">이전으로</a>
+                        <button id="contentCreateBtn" type="submit" class="btn btn-info rounded-0">수정</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-2 bg-white"></div>
+        </div>
+
+
+    <!--메인 광고바-->
+    <div class="row ad">
+        <div class="col-lg-12 ml-0 mr-0 pl-0 pr-0">
+            <div class="pt-2 text-center">
+                <div style="margin-left:20.5px;margin-right: 20.5px">
+                    <ins class="adsbygoogle"
+                         style="display: block; width: 970px; height: 250px;"
+                         data-ad-client="ca-pub-7895542192161438"
+                         data-ad-slot="3087166954"
+                         data-full-width-responsive="true">
+                        <img src="/static/img/main_advertisement.png">
+
+                    </ins>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--푸터 div-->
+<th:block th:replace="include/include_footer"></th:block>
+<!--푸터 div 끝-->
+
+<!--어디에 쓰이는 모달인지 모르겠음-->
+<div class="modal" tabindex="-1" role="dialog" data-keyboard="false">
+    <div class="mt-0 modal-dialog modal-dialog-centered justify-content-center" role="document">
+        <span class="fa fa-spinner fa-spin fa-3x"></span>
+    </div>
+</div>
+
+<!--자바스크립트-->
+<script src="https://s3-ap-northeast-1.amazonaws.com/ggtics-static/material-pro/assets/js/core/jquery.min.js"
+        type="text/javascript"></script>
+<script src="https://s3-ap-northeast-1.amazonaws.com/ggtics-static/material-pro/assets/js/core/popper.min.js"
+        type="text/javascript"></script>
+<script src="https://s3-ap-northeast-1.amazonaws.com/ggtics-static/material-pro/assets/js/core/bootstrap-material-design.min.js"
+        type="text/javascript"></script>
+<script src="https://s3-ap-northeast-1.amazonaws.com/ggtics-static/material-pro/assets/js/material-kit.min.js?v=2.1.1"
+        type="text/javascript"></script>
+<script src="https://s3-ap-northeast-1.amazonaws.com/ggtics-static/material-pro/assets/js/plugins/bootstrap-selectpicker.js"
+        type="text/javascript"></script>
+<script src="/v4/js/pack.js?q=1574328256125" type="text/javascript"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-72139051-3"></script>
+
+<script type="text/javascript">
+    !function (a) {
+        "function" == typeof define && define.amd ? define(["jquery"], a) : "object" == typeof exports ? a(require("jquery")) : a(jQuery)
+    }(function (a) {
+        function b(a) {
+            return h.raw ? a : encodeURIComponent(a)
+        }
+
+        function c(a) {
+            return h.raw ? a : decodeURIComponent(a)
+        }
+
+        function d(a) {
+            return b(h.json ? JSON.stringify(a) : String(a))
+        }
+
+        function e(a) {
+            0 === a.indexOf('"') && (a = a.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, "\\"));
+            try {
+                return a = decodeURIComponent(a.replace(g, " ")), h.json ? JSON.parse(a) : a
+            } catch (b) {
+            }
+        }
+
+        function f(b, c) {
+            var d = h.raw ? b : e(b);
+            return a.isFunction(c) ? c(d) : d
+        }
+
+        var g = /\+/g, h = a.cookie = function (e, g, i) {
+            if (void 0 !== g && !a.isFunction(g)) {
+                if (i = a.extend({}, h.defaults, i), "number" == typeof i.expires) {
+                    var j = i.expires, k = i.expires = new Date;
+                    k.setTime(+k + 864e5 * j)
+                }
+                return document.cookie = [b(e), "=", d(g), i.expires ? "; expires=" + i.expires.toUTCString() : "", i.path ? "; path=" + i.path : "", i.domain ? "; domain=" + i.domain : "", i.secure ? "; secure" : ""].join("")
+            }
+            for (var l = e ? void 0 : {}, m = document.cookie ? document.cookie.split("; ") : [], n = 0, o = m.length; o > n; n++) {
+                var p = m[n].split("="), q = c(p.shift()), r = p.join("=");
+                if (e && e === q) {
+                    l = f(r, g);
+                    break
+                }
+                e || void 0 === (r = f(r)) || (l[q] = r)
+            }
+            return l
+        };
+        h.defaults = {}, a.removeCookie = function (b, c) {
+            return void 0 === a.cookie(b) ? !1 : (a.cookie(b, "", a.extend({}, c, {expires: -1})), !a.cookie(b))
+        }
+    });
+</script>
+<script type="text/javascript">
+    var page = 'DuoRequest';
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    function pageview(uri) {
+        var v;
+        if (uri == undefined) {
+            v = '';
+        } else {
+            v = uri;
+        }
+
+        gtag('config', 'UA-72139051-3', {'page_path': uri});
+    }
+
+
+    pageview('V4-' + page);
+
+
+    function interaction(t) {
+        if (t != undefined) {
+            var eventName = page + "-" + t;
+
+            gtag('event', 'click', {'event_category': eventName});
+        }
+    }
+
+    window.onerror = function (message, source, lineno, colno, error) {
+        var summary = 'JSError(' + source + ') ' + lineno + " - " + error;
+
+        gtag('event', 'JSError', {'event_category': summary});
+        gtag('event', 'exception', {'exDescription': summary, 'exFatal': true});
+    }
+</script>
+<script type="text/javascript">
+    var base = "";
+    var urlPrefix = "/" + $("#regionSelect").val() + base;
+    var app = false;
+    var mobile = false;
+    var pc = true;
+    var commonError = '불편을 드려 죄송합니다. 오류가 발생하여 페이지를 표시할 수 없습니다.';
+    var rateLimitError = '일시적으로 라이엇 데이터 사용량을 초과하여 서비스 할 수 없습니다. 약 10초 후에 다시 시도해주세요.';
+    var invalidRating = '평점을 선택해주세요.';
+    var positiveColor = '#5582E9';
+    var negativeColor = '#DF3D53';
+    var brandColor = '#9c27b0';
+    var globalNavigationSummonerNameText = $("#globalNavigationSummonerNameText");
+    var profileMatchClientCacheKey = "profileMatch";
+    var profileMatchSummonerIdClientCacheKey = "profileMatchSummonerId";
+    var profileMatchClientCacheUpdatable = true;
+    var defaultCookieOption = {expires: 365 * 10};
+
+    $(".gg-action-areas").on("click", function (e) {
+        var target = $(e.target);
+        var listItem = target.closest(".gg-action");
+        var link = listItem.data("href");
+        var event = listItem.data("event");
+        if (event != undefined) {
+            interaction("Link-" + event);
+        }
+        if (link != undefined) {
+            location.href = link;
+            e.stopPropagation();
+        }
+    });
+
+    $('body').on('click', '.gg-action-area', function (e) {
+        var link = $(this).data("href");
+        var event = $(this).data("event");
+        if (event != undefined) {
+            interaction("Link-" + event);
+        }
+
+        if (link != undefined) {
+            location.href = link;
+        }
+        e.stopPropagation();
+    });
+
+    $('body').on('click', 'a', function (e) {
+        var event = $(this).data("event");
+        if (event != undefined) {
+            interaction(event);
+        }
+    });
+
+    function moveToProfile(summonerName) {
+        var region = $("#regionSelect").val() ? $("#regionSelect").val() : $("#regionSelectHome").val();
+        location.href = "/" + region + base + "/profile/" + encodeURIComponent(summonerName);
+    }
+
+    function showModal() {
+        $(".modal").modal("show");
+    }
+
+    function hideModal() {
+        $(".modal").modal("hide");
+    }
+
+    function loadUnloadedAds() {
+        (adsbygoogle = window.adsbygoogle || []).onload = function () {
+            [].forEach.call(document.getElementsByClassName('adsbygoogle'), function (e) {
+                if ($(e).data("adsbygoogle-status") != "done") adsbygoogle.push({})
+            })
+        }
+    }
+
+    $(window).on("load", function () {
+        $("#globalNavigationSearchButton").on("click", function () {
+            moveToProfile(globalNavigationSummonerNameText.val());
+        });
+
+        $("#globalNavigationForm").on("submit", function (e) {
+            moveToProfile(globalNavigationSummonerNameText.val());
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+        $("#profileUpdateBtn").on("click", function (e) {
+            var that = $(this);
+            var url = that.data("href");
+            var refreshUrl = that.data("refresh-href");
+            that.hide();
+            $("#profileUpdateProgressBtn").show();
+            e.preventDefault();
+            $.ajax({
+                url: url, success: function (result) {
+                    window.sessionStorage.removeItem(profileMatchClientCacheKey);
+                    profileMatchClientCacheUpdatable = false;
+                    window.sessionStorage.removeItem("tabData");
+                    window.sessionStorage.clear();
+
+                    location.href = refreshUrl;
+                }, error: function () {
+                    that.show();
+                    $("#profileUpdateProgressBtn").hide();
+                    alert(commonError);
+                }
+            });
+        });
+
+
+        $("#langSelect").on("change", function (e) {
+            window.sessionStorage.removeItem(profileMatchClientCacheKey);
+            profileMatchClientCacheUpdatable = false;
+            var newLang = this.value;
+            var url = document.location.href
+                .replace(/lang=[a-zA-Z_]+/, "")
+                .replace(/[\?\&]$/, "");
+            if (url.indexOf('?') > -1) {
+                document.location = url + "&lang=" + newLang;
+            } else {
+                document.location = url + "?lang=" + newLang;
+            }
+            e.stopPropagation();
+        });
+
+        $("#regionSelectHome").on("change", function (e) {
+            var newRegion = this.value;
+            $.cookie("userPrefRegion", newRegion, defaultCookieOption);
+            document.location = "/" + newRegion + base;
+            e.stopPropagation();
+        });
+
+
+        $(".single-performance").on("click", function (index) {
+            var id = $(this).data("id");
+            if (id != undefined) {
+                $(".single-performance").removeClass("gg-selected-single-performance");
+                $("." + id).addClass("gg-selected-single-performance");
+            }
+        });
+
+        $("#ratingBtn").on("click", function (index) {
+            var that = $(this);
+            if ($("#rating").val() == '') {
+                alert(invalidRating);
+                return;
+            }
+            $.ajax({
+                url: that.data("url") + "?score=" + $("#rating").val(), success: function (result) {
+                    interaction("Submit-Rating");
+                    $("#ratingArea").html(result).hide().show("slow");
+                    $('.rating').addRating();
+                }, error: function (result) {
+                    if (result.status == 403) {
+                        alert(result.responseText);
+                    } else {
+                        alert(commonError);
+                    }
+                }
+            });
+        });
+
+        loadUnloadedAds();
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+
+        $('[data-show-interaction]').each(function () {
+            interaction("Show-" + $(this).data("show-interaction"));
+        });
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+
+        setTimeout(function () {
+            try {
+                (function (t, l) {
+                    var w = window,
+                        d = document,
+                        s = d.createElement('script');
+                    s.type = 'text/javascript';
+                    s.async = true;
+                    s.defer = true;
+                    s.src = l;
+                    $("body").append(s);
+
+                    w[t] = w[t] || function () {
+                        (w["_rgea"] = w["_rgea"] || [
+                            ["uts", new Date()]
+                        ]).push(Array.prototype.slice.call(arguments));
+                        w.RGEA && w.RGEA.p();
+                    }
+                })("rgea", "https://static.developer.riotgames.com/js/rgea.min.js");
+
+                rgea("propertyId", "RGEA0002-005f62d2-a82e-439d-8b59-490432951311");
+                rgea("lolpid", "kr"); // league platform id (na1, la2, euw1, kr, etc)
+
+
+                rgea("anonymous", true); // defaults to true
+
+            } catch (e) {
+            }
+        }, 2000);
+
+    });
+</script>
+
+<!--<script type="text/javascript">-->
+    <!--var duoRequestListClientCacheKey = "duoRequestList";-->
+    <!--var queryString = '';-->
+
+    <!--var duoRequestList = window.sessionStorage.getItem(duoRequestListClientCacheKey);-->
+    <!--if (duoRequestList) {-->
+        <!--$('#content').html(duoRequestList);-->
+        <!--window.sessionStorage.removeItem(duoRequestListClientCacheKey);-->
+    <!--}-->
+
+    <!--$("#content").show();-->
+
+    <!--$(window).on("load", function () {-->
+        <!--$("form").submit(function (e) {-->
+            <!--var formValidity = this.checkValidity();-->
+            <!--if (formValidity) {-->
+                <!--var summonerNameInput = $("#duoRequestSummonerNameText");-->
+                <!--var checkUrl = urlPrefix + "/profile/namecheck/" + summonerNameInput.val();-->
+                <!--$.ajax({-->
+                    <!--url: checkUrl, success: function (result) {-->
+                        <!--showModal();-->
+                        <!--summonerNameInput.addClass("is-valid")-->
+                        <!--summonerNameInput.removeClass("is-invalid")-->
+                        <!--$.ajax({-->
+                            <!--type: "POST",-->
+                            <!--url: urlPrefix + "/duo/request",-->
+                            <!--data: {-->
+                                <!--mc: $("#duoRequestMatchCategorySelect").val(),-->
+                                <!--l: $("#duoRequestLaneSelect").val(),-->
+                                <!--e: $("#duoRequestExpirationSelect").val(),-->
+                                <!--n: $("#duoRequestSummonerNameText").val(),-->
+                                <!--d: $("#duoRequestDescText").val(),-->
+                                <!--v: $("#duoRequestVoiceCheck").prop("checked")-->
+                            <!--},-->
+                            <!--success: function (result) {-->
+                                <!--interaction("Submit-DuoRequest");-->
+                                <!--location.reload();-->
+                            <!--},-->
+                            <!--error: function (rresult) {-->
+                                <!--hideModal();-->
+                            <!--}-->
+                        <!--});-->
+                    <!--}, error: function (result) {-->
+                        <!--summonerNameInput.removeClass("is-valid")-->
+                        <!--summonerNameInput.addClass("is-invalid")-->
+                    <!--}-->
+                <!--});-->
+
+            <!--}-->
+
+            <!--e.preventDefault();-->
+            <!--e.stopPropagation();-->
+        <!--});-->
+
+        <!--$(".gg-request-areas").on("click", function (e) {-->
+            <!--var target = $(e.target);-->
+            <!--var listItem = target.closest(".gg-action");-->
+            <!--var link = listItem.data("href");-->
+            <!--var event = listItem.data("event");-->
+            <!--if (event != undefined) {-->
+                <!--interaction("Link-" + event);-->
+            <!--}-->
+            <!--if (link != undefined) {-->
+                <!--window.sessionStorage.setItem(duoRequestListClientCacheKey, $("#content").html());-->
+                <!--location.href = link;-->
+                <!--e.stopPropagation();-->
+            <!--}-->
+        <!--});-->
+
+        <!--$("#duoRequestSearchBtn").on("click", function () {-->
+            <!--interaction("Search-DuoRequest")-->
+            <!--var matchCategory = $("#duoRequestListMatchCategorySelect").val();-->
+            <!--var tier = $("#duoRequestListTierSelect").val();-->
+            <!--var lane = $("#duoRequestListLaneSelect").val();-->
+
+            <!--var url = urlPrefix + "/duo/request?more=true&mc=" + matchCategory + "&t=" + tier + "&l=" + lane;-->
+            <!--showModal();-->
+            <!--$.ajax({-->
+                <!--url: url, success: function (result) {-->
+                    <!--$("#duoRequestMoreBtn").data("next-page", "1");-->
+                    <!--var area = $("#duoRequestArea");-->
+                    <!--area.empty();-->
+                    <!--area.append(result);-->
+                    <!--hideModal();-->
+                <!--}, error: function (result) {-->
+                    <!--alert(commonError);-->
+                    <!--hideModal();-->
+                <!--}-->
+            <!--});-->
+        <!--});-->
+
+        <!--$("#duoRequestMoreBtn").on("click", function () {-->
+            <!--interaction("More-DuoRequest")-->
+            <!--var matchCategory = $("#duoRequestListMatchCategorySelect").val();-->
+            <!--var tier = $("#duoRequestListTierSelect").val();-->
+            <!--var lane = $("#duoRequestListLaneSelect").val();-->
+
+            <!--var page = $(this).data("next-page");-->
+            <!--var url = urlPrefix + "/duo/request?more=true&p=" + page + "&mc=" + matchCategory + "&t=" + tier + "&l=" + lane;-->
+            <!--var that = $(this);-->
+            <!--if (queryString != "") url = url + "&" + queryString;-->
+            <!--showModal();-->
+            <!--$.ajax({-->
+                <!--url: url, success: function (result) {-->
+                    <!--that.data("next-page", parseInt(that.data("next-page")) + 1);-->
+                    <!--$("#duoRequestArea").append(result)-->
+                    <!--hideModal();-->
+                <!--}, error: function (result) {-->
+                    <!--alert(commonError);-->
+                    <!--hideModal();-->
+                <!--}-->
+            <!--});-->
+        <!--});-->
+    <!--});-->
+<!--</script>-->
+</body>
+</html>
