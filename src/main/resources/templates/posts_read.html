@@ -173,7 +173,8 @@
                 <form class="form-delete col-12 px-0 bg-white" th:action="'/kr/board/posts/'+${board.no}" method="post">
                     <div>
                         <a id="PreviousBtn" class="btn btn-info rounded-0" href="/kr/board">목록</a>
-                        <a id="contentUpdateBtn" class="btn btn-info rounded-0" th:href="'/kr/board/posts/'+${board.no}+'/revision'">수정</a>
+                        <a id="contentUpdateBtn" class="btn btn-info rounded-0"
+                           th:href="'/kr/board/posts/'+${board.no}+'/revision'">수정</a>
                         <input type="hidden" name="_method" value="DELETE">
                         <button id="contentDeleteBtn" type="submit" class="btn btn-info rounded-0">삭제</button>
                     </div>
@@ -196,8 +197,8 @@
                     </div>
                 </div>
 
-                <div id="comment" class="col-12 collapse">
-                    <div id="duoRequestArea" class="col-12 px-0 gg-request-areas">
+                <div id="commentArea" class="col-12 collapse commentArea">
+                    <div id="duoRequestArea" class="col-12 px-0 gg-request-areas duoRequestArea commentTitle">
                         <!--댓글로 사용할 아이템-->
                         <div class="d-flex flex-column w-100 gg-action p-2">
                             <div class="d-flex gg-duo-request-text text-secondary text-left py-2">
@@ -210,51 +211,137 @@
                                 <div class="px-2"></div>
                                 <div><i class="material-icons gg-text-large">alarm_on</i>등록 시간
                                 </div>
+                                <div class="px-2"></div>
+                                <div><i class="material-icons gg-text-large">edit</i>수정
+                                </div>
+                                <div class="px-2"></div>
+                                <div><a class="commentDelete" th:href="'/kr/api/board/posts/'+${board.no}+'/comment'"><i
+                                        class="material-icons gg-text-large">delete</i>삭제</a></div>
                             </div>
                         </div>
-                        <div class="gg-thin-line my-2"></div>
-                        <!--댓글 아이템 끝-->
                     </div>
-                    <!--댓글 작성 폼-->
-                    <div id="commentResiterArea" class="col-12 px-0 mb-4">
+                    <div class="gg-thin-line my-2"></div>
+                    <!--댓글 아이템 끝-->
+                </div>
+                <!--댓글 작성 폼-->
+                <div id="commentResiterArea" class="col-12 px-0 mb-4">
+                    <form id="commentForm" class="commentCreate" method="post"
+                          th:action="'/kr/api/board/posts/'+${board.no}">
                         <div class="col-12 px-0">
                             <div class="input-group">
-                       <textarea class="form-control mr-2" id="duoRequestDescText" maxlength="200" rows="2"
-                                 placeholder="200자 이내 내용" required></textarea>
-                                <button id="duoRequestMoreBtn" data-next-page="2"
+                                <textarea id="commentContent" name="commentContent" form="commentForm"
+                                          class="form-control mr-2" maxlength="200" rows="2"
+                                          placeholder="200자 이내 내용" required></textarea>
+                                <button id="commentCreateBtn" type="submit" data-next-page="2"
                                         class="btn btn-info rounded-0 ">댓글등록
                                 </button>
-                                <div class="invalid-feedback">
-                                    내용을 입력해주세요.
-                                </div>
+                                <div class="invalid-feedback">내용을 입력해주세요.</div>
                             </div>
-
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <div class="col-lg-2 bg-white"></div>
     </div>
+    <div class="col-lg-2 bg-white"></div>
+</div>
 
-    <!--메인 광고바-->
-    <div class="row ad">
-        <div class="col-lg-12 ml-0 mr-0 pl-0 pr-0">
-            <div class="pt-2 text-center">
-                <div style="margin-left:20.5px;margin-right: 20.5px; margin-bottom: 20.5px;">
-                    <ins class="adsbygoogle"
-                         style="display: block; width: 970px; height: 250px;"
-                         data-ad-client="ca-pub-7895542192161438"
-                         data-ad-slot="3087166954"
-                         data-full-width-responsive="true">
-                        <img src="/static/img/main_advertisement.png">
+<script>
+    $(document).ready(function () {
+        $("a.commentDelete").click(function (e) {
+            e.preventDefault();
+            console.log("delete click,,");
 
-                    </ins>
-                </div>
+            var url = $(this).attr("href");
+            console.log("url : " + url);
+
+        });
+
+        $("#commentCreateBtn").click(function (e) {
+            e.preventDefault();
+            console.log("click..");
+
+            var queryString = $("#commentForm").serialize();
+            console.log("query : " + queryString);
+
+            var url = $("#commentForm").attr("action");
+            console.log("url : " + url);
+            $.ajax({
+                type: 'post',
+                url: url,
+                data: queryString,
+                dataType: 'json',
+                error: onError,
+                success: onSuccess
+            });
+
+            function onError() {
+
+            }
+
+            function onSuccess(data, status) {
+                console.log(data);
+                var commentTemplate = $("#commentTemplate").html();
+                var template = commentTemplate.format(data.commentNo, data.postsNo, data.comment, data.commentDate, data.commentWriter);
+                $(".commentTitle").append(template);
+                $("#commentContent").val("");
+            }
+
+
+
+            String.prototype.format = function () {
+                var args = arguments;
+                return this.replace(/{(\d+)}/g, function (match, number) {
+                    return typeof args[number] != 'undefined'
+                        ? args[number]
+                        : match
+                        ;
+                });
+            };
+        });
+
+
+    });
+</script>
+<!--메인 광고바-->
+<div class="row ad">
+    <div class="col-lg-12 ml-0 mr-0 pl-0 pr-0">
+        <div class="pt-2 text-center">
+            <div style="margin-left:20.5px;margin-right: 20.5px; margin-bottom: 20.5px;">
+                <ins class="adsbygoogle"
+                     style="display: block; width: 970px; height: 250px;"
+                     data-ad-client="ca-pub-7895542192161438"
+                     data-ad-slot="3087166954"
+                     data-full-width-responsive="true">
+                    <img src="/static/img/main_advertisement.png">
+
+                </ins>
             </div>
         </div>
     </div>
 </div>
+</div>
+
+<script type="text/template" id="commentTemplate">
+    <div class="d-flex flex-column w-100 gg-action p-2">
+        <div class="d-flex gg-duo-request-text text-secondary text-left py-2">
+            {2}
+        </div>
+        <div class="d-flex gg-text-large justify-content-end pt-2">
+            <div><i class="material-icons gg-text-large">person</i>
+                <span class="gg-text-normal-color">{4}</span>
+            </div>
+            <div class="px-2"></div>
+            <div><i class="material-icons gg-text-large">alarm_on</i>{3}</div>
+            <div class="px-2"></div>
+            <div><i class="material-icons gg-text-large">edit</i>수정</div>
+            <div class="px-2"></div>
+            <div><a id="commentDelete" class="commentDelete" th:href="'/kr/api/board/posts/'+${board.no}+'/comment/{0}'"><i
+                    class="material-icons gg-text-large">delete</i>삭제</a></div>
+        </div>
+    </div>
+    <div class="gg-thin-line my-2"></div>
+</script>
 
 <!--푸터 div-->
 <th:block th:replace="include/include_footer"></th:block>
@@ -268,6 +355,7 @@
 </div>
 
 <!--자바스크립트-->
+
 <script src="https://s3-ap-northeast-1.amazonaws.com/ggtics-static/material-pro/assets/js/core/jquery.min.js"
         type="text/javascript"></script>
 <script src="https://s3-ap-northeast-1.amazonaws.com/ggtics-static/material-pro/assets/js/core/popper.min.js"
@@ -278,426 +366,131 @@
         type="text/javascript"></script>
 <script src="https://s3-ap-northeast-1.amazonaws.com/ggtics-static/material-pro/assets/js/plugins/bootstrap-selectpicker.js"
         type="text/javascript"></script>
-<script src="/v4/js/pack.js?q=1574421682825" type="text/javascript"></script>
+<!--<script src="/v4/js/pack.js?q=1574421682825" type="text/javascript"></script>-->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-72139051-3"></script>
-<script type="text/javascript">
-    !function (a) {
-        "function" == typeof define && define.amd ? define(["jquery"], a) : "object" == typeof exports ? a(require("jquery")) : a(jQuery)
-    }(function (a) {
-        function b(a) {
-            return h.raw ? a : encodeURIComponent(a)
-        }
 
-        function c(a) {
-            return h.raw ? a : decodeURIComponent(a)
-        }
-
-        function d(a) {
-            return b(h.json ? JSON.stringify(a) : String(a))
-        }
-
-        function e(a) {
-            0 === a.indexOf('"') && (a = a.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, "\\"));
-            try {
-                return a = decodeURIComponent(a.replace(g, " ")), h.json ? JSON.parse(a) : a
-            } catch (b) {
-            }
-        }
-
-        function f(b, c) {
-            var d = h.raw ? b : e(b);
-            return a.isFunction(c) ? c(d) : d
-        }
-
-        var g = /\+/g, h = a.cookie = function (e, g, i) {
-            if (void 0 !== g && !a.isFunction(g)) {
-                if (i = a.extend({}, h.defaults, i), "number" == typeof i.expires) {
-                    var j = i.expires, k = i.expires = new Date;
-                    k.setTime(+k + 864e5 * j)
-                }
-                return document.cookie = [b(e), "=", d(g), i.expires ? "; expires=" + i.expires.toUTCString() : "", i.path ? "; path=" + i.path : "", i.domain ? "; domain=" + i.domain : "", i.secure ? "; secure" : ""].join("")
-            }
-            for (var l = e ? void 0 : {}, m = document.cookie ? document.cookie.split("; ") : [], n = 0, o = m.length; o > n; n++) {
-                var p = m[n].split("="), q = c(p.shift()), r = p.join("=");
-                if (e && e === q) {
-                    l = f(r, g);
-                    break
-                }
-                e || void 0 === (r = f(r)) || (l[q] = r)
-            }
-            return l
-        };
-        h.defaults = {}, a.removeCookie = function (b, c) {
-            return void 0 === a.cookie(b) ? !1 : (a.cookie(b, "", a.extend({}, c, {expires: -1})), !a.cookie(b))
-        }
-    });
-</script>
+<!--페이지뷰 단위 측정하는 자바스크립트로 추정-->
 <script type="text/javascript">
     var page = 'DuoRequest';
     window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-
-    function pageview(uri) {
-        var v;
-        if (uri == undefined) {
-            v = '';
-        } else {
-            v = uri;
-        }
-
-        gtag('config', 'UA-72139051-3', {'page_path': uri});
-    }
-
-
-    pageview('V4-' + page);
-
-
-    function interaction(t) {
-        if (t != undefined) {
-            var eventName = page + "-" + t;
-
-            gtag('event', 'click', {'event_category': eventName});
-        }
-    }
-
-    window.onerror = function (message, source, lineno, colno, error) {
-        var summary = 'JSError(' + source + ') ' + lineno + " - " + error;
-
-        gtag('event', 'JSError', {'event_category': summary});
-        gtag('event', 'exception', {'exDescription': summary, 'exFatal': true});
-    }
-</script>
-<script type="text/javascript">
-    var base = "";
-    var urlPrefix = "/" + $("#regionSelect").val() + base;
-    var app = false;
-    var mobile = false;
-    var pc = true;
-    var commonError = '불편을 드려 죄송합니다. 오류가 발생하여 페이지를 표시할 수 없습니다.';
-    var rateLimitError = '일시적으로 라이엇 데이터 사용량을 초과하여 서비스 할 수 없습니다. 약 10초 후에 다시 시도해주세요.';
-    var invalidRating = '평점을 선택해주세요.';
-    var positiveColor = '#5582E9';
-    var negativeColor = '#DF3D53';
-    var brandColor = '#9c27b0';
-    var globalNavigationSummonerNameText = $("#globalNavigationSummonerNameText");
-    var profileMatchClientCacheKey = "profileMatch";
-    var profileMatchSummonerIdClientCacheKey = "profileMatchSummonerId";
-    var profileMatchClientCacheUpdatable = true;
-    var defaultCookieOption = {expires: 365 * 10};
-
-    $(".gg-action-areas").on("click", function (e) {
-        var target = $(e.target);
-        var listItem = target.closest(".gg-action");
-        var link = listItem.data("href");
-        var event = listItem.data("event");
-        if (event != undefined) {
-            interaction("Link-" + event);
-        }
-        if (link != undefined) {
-            location.href = link;
-            e.stopPropagation();
-        }
-    });
-
-    $('body').on('click', '.gg-action-area', function (e) {
-        var link = $(this).data("href");
-        var event = $(this).data("event");
-        if (event != undefined) {
-            interaction("Link-" + event);
-        }
-
-        if (link != undefined) {
-            location.href = link;
-        }
-        e.stopPropagation();
-    });
-
-    $('body').on('click', 'a', function (e) {
-        var event = $(this).data("event");
-        if (event != undefined) {
-            interaction(event);
-        }
-    });
-
-    function moveToProfile(summonerName) {
-        var region = $("#regionSelect").val() ? $("#regionSelect").val() : $("#regionSelectHome").val();
-        location.href = "/" + region + base + "/profile/" + encodeURIComponent(summonerName);
-    }
-
-    function showModal() {
-        $(".modal").modal("show");
-    }
-
-    function hideModal() {
-        $(".modal").modal("hide");
-    }
-
-    function loadUnloadedAds() {
-        (adsbygoogle = window.adsbygoogle || []).onload = function () {
-            [].forEach.call(document.getElementsByClassName('adsbygoogle'), function (e) {
-                if ($(e).data("adsbygoogle-status") != "done") adsbygoogle.push({})
-            })
-        }
-    }
-
-    $(window).on("load", function () {
-        $("#globalNavigationSearchButton").on("click", function () {
-            moveToProfile(globalNavigationSummonerNameText.val());
-        });
-
-        $("#globalNavigationForm").on("submit", function (e) {
-            moveToProfile(globalNavigationSummonerNameText.val());
-            e.preventDefault();
-            e.stopPropagation();
-        });
-
-        $("#profileUpdateBtn").on("click", function (e) {
-            var that = $(this);
-            var url = that.data("href");
-            var refreshUrl = that.data("refresh-href");
-            that.hide();
-            $("#profileUpdateProgressBtn").show();
-            e.preventDefault();
-            $.ajax({
-                url: url, success: function (result) {
-                    window.sessionStorage.removeItem(profileMatchClientCacheKey);
-                    profileMatchClientCacheUpdatable = false;
-                    window.sessionStorage.removeItem("tabData");
-                    window.sessionStorage.clear();
-
-                    location.href = refreshUrl;
-                }, error: function () {
-                    that.show();
-                    $("#profileUpdateProgressBtn").hide();
-                    alert(commonError);
-                }
-            });
-        });
-
-
-        $("#langSelect").on("change", function (e) {
-            window.sessionStorage.removeItem(profileMatchClientCacheKey);
-            profileMatchClientCacheUpdatable = false;
-            var newLang = this.value;
-            var url = document.location.href
-                .replace(/lang=[a-zA-Z_]+/, "")
-                .replace(/[\?\&]$/, "");
-            if (url.indexOf('?') > -1) {
-                document.location = url + "&lang=" + newLang;
-            } else {
-                document.location = url + "?lang=" + newLang;
-            }
-            e.stopPropagation();
-        });
-
-        $("#regionSelectHome").on("change", function (e) {
-            var newRegion = this.value;
-            $.cookie("userPrefRegion", newRegion, defaultCookieOption);
-            document.location = "/" + newRegion + base;
-            e.stopPropagation();
-        });
-
-
-        $(".single-performance").on("click", function (index) {
-            var id = $(this).data("id");
-            if (id != undefined) {
-                $(".single-performance").removeClass("gg-selected-single-performance");
-                $("." + id).addClass("gg-selected-single-performance");
-            }
-        });
-
-        $("#ratingBtn").on("click", function (index) {
-            var that = $(this);
-            if ($("#rating").val() == '') {
-                alert(invalidRating);
-                return;
-            }
-            $.ajax({
-                url: that.data("url") + "?score=" + $("#rating").val(), success: function (result) {
-                    interaction("Submit-Rating");
-                    $("#ratingArea").html(result).hide().show("slow");
-                    $('.rating').addRating();
-                }, error: function (result) {
-                    if (result.status == 403) {
-                        alert(result.responseText);
-                    } else {
-                        alert(commonError);
-                    }
-                }
-            });
-        });
-
-        loadUnloadedAds();
-        var forms = document.getElementsByClassName('needs-validation');
-        var validation = Array.prototype.filter.call(forms, function (form) {
-            form.addEventListener('submit', function (event) {
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-        });
-
-        $('[data-show-interaction]').each(function () {
-            interaction("Show-" + $(this).data("show-interaction"));
-        });
-
-        $('[data-toggle="tooltip"]').tooltip();
-
-
-        setTimeout(function () {
-            try {
-                (function (t, l) {
-                    var w = window,
-                        d = document,
-                        s = d.createElement('script');
-                    s.type = 'text/javascript';
-                    s.async = true;
-                    s.defer = true;
-                    s.src = l;
-                    $("body").append(s);
-
-                    w[t] = w[t] || function () {
-                        (w["_rgea"] = w["_rgea"] || [
-                            ["uts", new Date()]
-                        ]).push(Array.prototype.slice.call(arguments));
-                        w.RGEA && w.RGEA.p();
-                    }
-                })("rgea", "https://static.developer.riotgames.com/js/rgea.min.js");
-
-                rgea("propertyId", "RGEA0002-005f62d2-a82e-439d-8b59-490432951311");
-                rgea("lolpid", "kr"); // league platform id (na1, la2, euw1, kr, etc)
-
-
-                rgea("anonymous", true); // defaults to true
-
-            } catch (e) {
-            }
-        }, 2000);
-
-    });
 </script>
 
+
+<!--캐시 기능인듯 -->
 <script type="text/javascript">
     var duoRequestListClientCacheKey = "duoRequestList";
     var queryString = '';
 
     var duoRequestList = window.sessionStorage.getItem(duoRequestListClientCacheKey);
     if (duoRequestList) {
-        $('#comment').html(duoRequestList);
+        $('#commentArea').html(duoRequestList);
         window.sessionStorage.removeItem(duoRequestListClientCacheKey);
     }
 
-    $("#comment").show();
+    $("#commentArea").show();
 
-    $(window).on("load", function () {
-        $("form").submit(function (e) {
-            var formValidity = this.checkValidity();
-            if (formValidity) {
-                var summonerNameInput = $("#duoRequestSummonerNameText");
-                // var checkUrl = urlPrefix + "/profile/namecheck/" + summonerNameInput.val();
-                $.ajax({
-                    url: checkUrl, success: function (result) {
-                        showModal();
-                        summonerNameInput.addClass("is-valid")
-                        summonerNameInput.removeClass("is-invalid")
-                        $.ajax({
-                            type: "POST",
-                            url: urlPrefix + "/duo/request",
-                            data: {
-                                mc: $("#duoRequestMatchCategorySelect").val(),
-                                l: $("#duoRequestLaneSelect").val(),
-                                e: $("#duoRequestExpirationSelect").val(),
-                                n: $("#duoRequestSummonerNameText").val(),
-                                d: $("#duoRequestDescText").val(),
-                                v: $("#duoRequestVoiceCheck").prop("checked")
-                            },
-                            success: function (result) {
-                                interaction("Submit-DuoRequest");
-                                location.reload();
-                            },
-                            error: function (rresult) {
-                                hideModal();
-                            }
-                        });
-                    }, error: function (result) {
-                        summonerNameInput.removeClass("is-valid")
-                        summonerNameInput.addClass("is-invalid")
-                    }
-                });
-
-            }
-
-            e.preventDefault();
-            e.stopPropagation();
-        });
-
-        $(".gg-request-areas").on("click", function (e) {
-            var target = $(e.target);
-            var listItem = target.closest(".gg-action");
-            var link = listItem.data("href");
-            var event = listItem.data("event");
-            if (event != undefined) {
-                interaction("Link-" + event);
-            }
-            if (link != undefined) {
-                window.sessionStorage.setItem(duoRequestListClientCacheKey, $("#comment").html());
-                location.href = link;
-                e.stopPropagation();
-            }
-        });
-
-        $("#duoRequestSearchBtn").on("click", function () {
-            interaction("Search-DuoRequest")
-            var matchCategory = $("#duoRequestListMatchCategorySelect").val();
-            var tier = $("#duoRequestListTierSelect").val();
-            var lane = $("#duoRequestListLaneSelect").val();
-
-            var url = urlPrefix + "/duo/request?more=true&mc=" + matchCategory + "&t=" + tier + "&l=" + lane;
-            showModal();
-            $.ajax({
-                url: url, success: function (result) {
-                    $("#duoRequestMoreBtn").data("next-page", "1");
-                    var area = $("#duoRequestArea");
-                    area.empty();
-                    area.append(result);
-                    hideModal();
-                }, error: function (result) {
-                    alert(commonError);
-                    hideModal();
-                }
-            });
-        });
-
-        $("#duoRequestMoreBtn").on("click", function () {
-            interaction("More-DuoRequest")
-            var matchCategory = $("#duoRequestListMatchCategorySelect").val();
-            var tier = $("#duoRequestListTierSelect").val();
-            var lane = $("#duoRequestListLaneSelect").val();
-
-            var page = $(this).data("next-page");
-            var url = urlPrefix + "/duo/request?more=true&p=" + page + "&mc=" + matchCategory + "&t=" + tier + "&l=" + lane;
-            var that = $(this);
-            if (queryString != "") url = url + "&" + queryString;
-            showModal();
-            $.ajax({
-                url: url, success: function (result) {
-                    that.data("next-page", parseInt(that.data("next-page")) + 1);
-                    $("#duoRequestArea").append(result)
-                    hideModal();
-                }, error: function (result) {
-                    alert(commonError);
-                    hideModal();
-                }
-            });
-        });
-    });
+    // $(window).on("load", function () {
+    //     $("form").submit(function (e) {
+    //         var formValidity = this.checkValidity();
+    //         if (formValidity) {
+    //             var summonerNameInput = $("#duoRequestSummonerNameText");
+    //             // var checkUrl = urlPrefix + "/profile/namecheck/" + summonerNameInput.val();
+    //             $.ajax({
+    //                 url: checkUrl, success: function (result) {
+    //                     showModal();
+    //                     summonerNameInput.addClass("is-valid")
+    //                     summonerNameInput.removeClass("is-invalid")
+    //                     $.ajax({
+    //                         type: "POST",
+    //                         url: urlPrefix + "/duo/request",
+    //                         data: {
+    //                             mc: $("#duoRequestMatchCategorySelect").val(),
+    //                             l: $("#duoRequestLaneSelect").val(),
+    //                             e: $("#duoRequestExpirationSelect").val(),
+    //                             n: $("#duoRequestSummonerNameText").val(),
+    //                             d: $("#duoRequestDescText").val(),
+    //                             v: $("#duoRequestVoiceCheck").prop("checked")
+    //                         },
+    //                         success: function (result) {
+    //                             interaction("Submit-DuoRequest");
+    //                             location.reload();
+    //                         },
+    //                         error: function (rresult) {
+    //                             hideModal();
+    //                         }
+    //                     });
+    //                 }, error: function (result) {
+    //                     summonerNameInput.removeClass("is-valid")
+    //                     summonerNameInput.addClass("is-invalid")
+    //                 }
+    //             });
+    //
+    //         }
+    //
+    //         e.preventDefault();
+    //         e.stopPropagation();
+    //     });
+    //
+    //     $(".gg-request-areas").on("click", function (e) {
+    //         var target = $(e.target);
+    //         var listItem = target.closest(".gg-action");
+    //         var link = listItem.data("href");
+    //         var event = listItem.data("event");
+    //         if (event != undefined) {
+    //             interaction("Link-" + event);
+    //         }
+    //         if (link != undefined) {
+    //             window.sessionStorage.setItem(duoRequestListClientCacheKey, $("#commentArea").html());
+    //             location.href = link;
+    //             e.stopPropagation();
+    //         }
+    //     });
+    //
+    //     $("#duoRequestSearchBtn").on("click", function () {
+    //         interaction("Search-DuoRequest")
+    //         var matchCategory = $("#duoRequestListMatchCategorySelect").val();
+    //         var tier = $("#duoRequestListTierSelect").val();
+    //         var lane = $("#duoRequestListLaneSelect").val();
+    //
+    //         var url = urlPrefix + "/duo/request?more=true&mc=" + matchCategory + "&t=" + tier + "&l=" + lane;
+    //         showModal();
+    //         $.ajax({
+    //             url: url, success: function (result) {
+    //                 $("#duoRequestMoreBtn").data("next-page", "1");
+    //                 var area = $("#duoRequestArea");
+    //                 area.empty();
+    //                 area.append(result);
+    //                 hideModal();
+    //             }, error: function (result) {
+    //                 alert(commonError);
+    //                 hideModal();
+    //             }
+    //         });
+    //     });
+    //
+    //     $("#duoRequestMoreBtn").on("click", function () {
+    //         interaction("More-DuoRequest")
+    //         var matchCategory = $("#duoRequestListMatchCategorySelect").val();
+    //         var tier = $("#duoRequestListTierSelect").val();
+    //         var lane = $("#duoRequestListLaneSelect").val();
+    //
+    //         var page = $(this).data("next-page");
+    //         var url = urlPrefix + "/duo/request?more=true&p=" + page + "&mc=" + matchCategory + "&t=" + tier + "&l=" + lane;
+    //         var that = $(this);
+    //         if (queryString != "") url = url + "&" + queryString;
+    //         showModal();
+    //         $.ajax({
+    //             url: url, success: function (result) {
+    //                 that.data("next-page", parseInt(that.data("next-page")) + 1);
+    //                 $("#duoRequestArea").append(result)
+    //                 hideModal();
+    //             }, error: function (result) {
+    //                 alert(commonError);
+    //                 hideModal();
+    //             }
+    //         });
+    //     });
+    // });
 </script>
 </body>
 </html>
