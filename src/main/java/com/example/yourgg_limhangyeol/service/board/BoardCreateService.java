@@ -13,8 +13,7 @@ public class BoardCreateService {
 
     public Board contentCreate(String title, String content) {
         Board board = new Board(title,"null",content,"한결","20191120",1);
-        boardRepository.save(board);
-        return board;
+        return boardRepository.save(board);
     }
 
 }
