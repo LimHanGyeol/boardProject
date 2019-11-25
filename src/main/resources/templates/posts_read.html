@@ -193,27 +193,44 @@
                 </div>
 
                 <div id="commentArea" class="col-12 collapse commentArea">
+                    <!--duoRequestArea 고치면 작동안됨-->
                     <div id="duoRequestArea" class="col-12 px-0 gg-request-areas duoRequestArea commentTitle">
                         <!--댓글로 사용할 아이템, 댓글 추가하면 주석 사이의 div가 추가 됨.-->
                         <th:block th:each="comment:${commentList}">
+                            <!--삭제하면 commentBox 범위의 article이 삭제됨-->
                             <article class="commentBox">
                                 <div class="d-flex flex-column w-100 gg-action p-2">
-                                    <div class="d-flex gg-duo-request-text text-secondary text-left py-2">
+                                    <div id="commentContentDiv" th:name="commentContentDiv"
+                                         class="d-flex gg-duo-request-text text-secondary text-left py-2 commentContentDiv">
                                         내용
                                     </div>
+                                    <!--commentContent 가 textarea의 name-->
+                                    <textarea id="commentContentTextarea" name="commentContentUpdate"
+                                              style="display: none"
+                                              class="form-control mr-0 commentContentTextarea" maxlength="200" rows="2"
+                                              placeholder="200자 이내 내용" required th:text="내용"></textarea>
+
                                     <div class="d-flex gg-text-large justify-content-end pt-2">
                                         <div><i class="material-icons gg-text-large">person</i>
                                             <span class="gg-text-normal-color">유저명</span>
                                         </div>
                                         <div class="px-2"></div>
-                                        <div><i class="material-icons gg-text-large">alarm_on</i>등록 시간
-                                        </div>
+                                        <div><i class="material-icons gg-text-large">alarm_on</i>등록 시간</div>
                                         <div class="px-2"></div>
-                                        <div><i class="material-icons gg-text-large">edit</i>수정
-                                        </div>
+                                        <div><a class="commentUpdateBtn" th:value="'{0}'" style="display: inline">
+                                            <i class="material-icons gg-text-large">edit</i>수정</a></div>
+
+                                        <div><a class="commentUpdateComplateBtn" th:value="'{0}'" style="display: none"
+                                                th:href="'/kr/api/board/posts/'+${board.no}+'/comment/{0}'"><i
+                                                class="material-icons gg-text-large">edit</i>완료</a></div>
+
                                         <div class="px-2"></div>
-                                        <div><a class="commentDelete" th:href="'/kr/api/board/posts/'+${board.no}+'/comment/'+${comment.commentNo}">
-                                            <i class="material-icons gg-text-large">delete</i>삭제</a></div>
+                                        <div><a class="commentDeleteBtn" style="display: inline"
+                                                th:href="'/kr/api/board/posts/'+${board.no}+'/comment/{0}'"><i
+                                                class="material-icons gg-text-large">delete</i>삭제</a></div>
+
+                                        <div><a class="commentCancelBtn" style="display: none"><i
+                                                class="material-icons gg-text-large">delete</i>취소</a></div>
                                     </div>
                                 </div>
                                 <div class="gg-thin-line my-2"></div>
@@ -229,6 +246,7 @@
                         <div class="col-12 px-0">
                             <div class="input-group">
                                 <textarea id="commentContent" name="commentContent" form="commentForm"
+                                          th:value="comment"
                                           class="form-control mr-2" maxlength="200" rows="2"
                                           placeholder="200자 이내 내용" required></textarea>
                                 <button id="commentCreateBtn" type="submit" data-next-page="2"
@@ -264,12 +282,21 @@
 </div>
 </div>
 
-<script type="text/template" id="commentTemplate">
+<!--댓글 작성 시 Ajax로 추가되는 Area-->
+<script type="text/template" id="commentCreateTemplate">
+    <!--삭제하면 commentBox 범위의 article이 삭제됨-->
     <article id="commentBox">
         <div class="d-flex flex-column w-100 gg-action p-2 commentItem">
-            <div class="d-flex gg-duo-request-text text-secondary text-left py-2">
+            <div id="commentContentDiv{0}" th:name="commentContentDiv"
+                 class="d-flex gg-duo-request-text text-secondary text-left py-2 commentContentDiv">
                 {2}
             </div>
+            <!--commentContent 가 textarea의 name-->
+            <textarea id="commentContentTextarea{0}" name="commentContentUpdate"
+                      style="display: none"
+                      class="form-control mr-0 commentContentTextarea"  maxlength="200" rows="2"
+                      placeholder="200자 이내 내용" required th:text="내용"></textarea>
+
             <div class="d-flex gg-text-large justify-content-end pt-2">
                 <div><i class="material-icons gg-text-large">person</i>
                     <span class="gg-text-normal-color">{4}</span>
@@ -277,15 +304,28 @@
                 <div class="px-2"></div>
                 <div><i class="material-icons gg-text-large">alarm_on</i>{3}</div>
                 <div class="px-2"></div>
-                <div><i class="material-icons gg-text-large">edit</i>수정</div>
+                <div><a class="commentUpdateBtn" th:value="'{0}'" style="display: inline">
+                     <i class="material-icons gg-text-large">edit</i>수정</a></div>
+
+                <div><a class="commentUpdateComplateBtn" th:value="'{0}'" style="display: none"
+                        th:href="'/kr/api/board/posts/'+${board.no}+'/comment/{0}'"><i
+                        class="material-icons gg-text-large">edit</i>완료</a></div>
+
                 <div class="px-2"></div>
-                <div><a class="commentDelete"
+                <div><a class="commentDeleteBtn" style="display: inline"
                         th:href="'/kr/api/board/posts/'+${board.no}+'/comment/{0}'"><i
                         class="material-icons gg-text-large">delete</i>삭제</a></div>
+
+                <div><a class="commentCancelBtn" style="display: none"><i
+                        class="material-icons gg-text-large">delete</i>취소</a></div>
             </div>
         </div>
         <div class="gg-thin-line my-2"></div>
     </article>
+</script>
+
+<script>
+
 </script>
 
 <!--푸터 div-->

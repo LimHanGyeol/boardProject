@@ -42,4 +42,8 @@ public class Comment {
         this.commentDate = commentDate;
         this.commentWriter = commentWriter;
     }
+
+    public void commentUpdate(String comment) {
+        this.comment = comment;
+    }
 }
