@@ -78,7 +78,6 @@ function openCommentUpdateForm(e) {
 
     var commentContent = document.getElementById(commentContentDiv).innerText;
 
-    //document.getElementById(commentContentDiv).style.display = "none";          // contentDiv
     document.getElementById(commentContentTextarea).style.display = "inline";   // contentTextarea
     document.getElementById(commentContentTextarea).value = commentContent;     // textarea에 값 배치
 
@@ -96,10 +95,15 @@ function commentUpdateJs(e) {
     console.log("commentUpdateComplate click!!");
 
     var complateBtn = $(this);
-    var commentNo = complateBtn.attr("value");
-    console.log("no :" + commentNo);
+    var commentNo = complateBtn.attr("value");                          // 수정 완료 버튼의 this
+    var commentContentDiv = "commentContentDiv" + commentNo;            // commentContentDiv의 동적 id 할당
+    var commentContentTextarea = "commentContentTextarea" + commentNo;  // commentContentTextarea의 동적 id 할당
 
-    var queryString = $(".commentContentTextarea").serialize();
+    var getTextarea = document.getElementById(commentContentTextarea);  // 동적으로 생성된 textarea id 할당
+    var commentContent = $(getTextarea).val();                          // textarea 값 가져오기
+
+    var queryString = $(getTextarea).serialize();
+
     console.log(queryString);
 
     var url = complateBtn.attr("href");
@@ -113,7 +117,15 @@ function commentUpdateJs(e) {
         error: commentUpdateError,
         success: function (data) {
             console.log("comment Update Data : " + data);
+            document.getElementById(commentContentDiv).innerHTML = commentContent;  // textarea 입력값 div와 치환
+            commentContent = null;
+            queryString = null;
 
+            document.getElementById(commentContentTextarea).style.display = "none";
+            $('.commentUpdateBtn').css({display: 'inline'});             // 수정 버튼 none
+            $('.commentDeleteBtn').css({display: 'inline'});             // 삭제 버튼 none
+            $('.commentUpdateComplateBtn').css({display: 'none'});   // 수정 완료버튼 inline
+            $('.commentCancelBtn').css({display: 'none'});           // 취소 버튼 inline
         }
     });
 }
