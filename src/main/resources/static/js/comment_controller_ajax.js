@@ -121,7 +121,9 @@ function commentUpdateJs(e) {
             commentContent = null;
             queryString = null;
 
-            document.getElementById(commentContentTextarea).style.display = "none";
+            var textarea = document.getElementById(commentContentTextarea);
+//            document.getElementById(commentContentTextarea).style.display = "none";
+            $(textarea).css({display: 'none'});
             $('.commentUpdateBtn').css({display: 'inline'});             // 수정 버튼 none
             $('.commentDeleteBtn').css({display: 'inline'});             // 삭제 버튼 none
             $('.commentUpdateComplateBtn').css({display: 'none'});   // 수정 완료버튼 inline
@@ -132,6 +134,27 @@ function commentUpdateJs(e) {
 
 function commentUpdateError() {
 
+}
+
+// 댓글 수정 취소
+$(document).on('click','.commentCancelBtn', closeCommentUpdateForm);
+
+function closeCommentUpdateForm(e) {
+    e.preventDefault();
+    console.log("closeUpdateForm Click!!");
+
+    var cancelBtn = $(this);
+    var commentNo = cancelBtn.attr("value");
+    //var commentContentDiv = "commentContentDiv" + commentNo;            // commentContentDiv의 동적 id 할당
+    var commentContentTextarea = "commentContentTextarea" + commentNo;  // commentContentTextarea의 동적 id 할당
+    console.log(commentContentTextarea);
+    var textarea = document.getElementById(commentContentTextarea);
+//            document.getElementById(commentContentTextarea).style.display = "none";
+    $(textarea).css({display: 'none !important;'});
+    $('.commentUpdateBtn').css({display: 'inline'});             // 수정 버튼 none
+    $('.commentDeleteBtn').css({display: 'inline'});             // 삭제 버튼 none
+    $('.commentUpdateComplateBtn').css({display: 'none'});   // 수정 완료버튼 inline
+    $('.commentCancelBtn').css({display: 'none'});           // 취소 버튼 inline
 }
 
 
