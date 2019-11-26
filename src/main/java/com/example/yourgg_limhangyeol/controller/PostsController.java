@@ -1,20 +1,15 @@
 package com.example.yourgg_limhangyeol.controller;
 
 import com.example.yourgg_limhangyeol.dto.CommentDto;
-import com.example.yourgg_limhangyeol.dto.PostsDto;
-import com.example.yourgg_limhangyeol.model.Comment;
-import com.example.yourgg_limhangyeol.model.FileUpload;
 import com.example.yourgg_limhangyeol.model.Posts;
 import com.example.yourgg_limhangyeol.service.posts.PostsCreateService;
 import com.example.yourgg_limhangyeol.service.posts.PostsDeleteService;
 import com.example.yourgg_limhangyeol.service.posts.PostsReadService;
 import com.example.yourgg_limhangyeol.service.posts.PostsUpdateService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

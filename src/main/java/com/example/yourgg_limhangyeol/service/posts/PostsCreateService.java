@@ -1,18 +1,10 @@
 package com.example.yourgg_limhangyeol.service.posts;
 
-import com.example.yourgg_limhangyeol.model.FileUpload;
 import com.example.yourgg_limhangyeol.model.Posts;
 import com.example.yourgg_limhangyeol.repository.PostsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class PostsCreateService {
