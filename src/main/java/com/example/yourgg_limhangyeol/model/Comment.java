@@ -1,7 +1,5 @@
 package com.example.yourgg_limhangyeol.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import javafx.geometry.Pos;
 import lombok.*;
 
 import javax.persistence.*;

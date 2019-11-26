@@ -1,7 +1,6 @@
 package com.example.yourgg_limhangyeol.controller;
 
 import com.example.yourgg_limhangyeol.dto.PostsDto;
-import com.example.yourgg_limhangyeol.model.Posts;
 import com.example.yourgg_limhangyeol.service.posts.PostsReadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

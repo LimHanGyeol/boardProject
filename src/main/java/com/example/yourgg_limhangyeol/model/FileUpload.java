@@ -1,7 +1,6 @@
 package com.example.yourgg_limhangyeol.model;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.File;
