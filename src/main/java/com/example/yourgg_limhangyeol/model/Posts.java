@@ -1,6 +1,7 @@
 package com.example.yourgg_limhangyeol.model;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -37,6 +38,10 @@ public class Posts {
 
     @Column(name = "hit")
     private int hit;
+
+    @Transient
+    private MultipartFile[] fileDatas;
+
 
     public Posts(String title, String image, String content, String writer, int hit) {
         this.title = title;

@@ -3,6 +3,7 @@ package com.example.yourgg_limhangyeol.controller;
 import com.example.yourgg_limhangyeol.dto.CommentDto;
 import com.example.yourgg_limhangyeol.dto.PostsDto;
 import com.example.yourgg_limhangyeol.model.Comment;
+import com.example.yourgg_limhangyeol.model.FileUpload;
 import com.example.yourgg_limhangyeol.model.Posts;
 import com.example.yourgg_limhangyeol.service.posts.PostsCreateService;
 import com.example.yourgg_limhangyeol.service.posts.PostsDeleteService;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,8 +39,13 @@ public class PostsController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/kr/board/posts")
-    public String postsCreate(String title, String content,String writer, Model model) {
-        Posts posts = postsCreateService.contentCreate(title,content, writer);
+    // @ModelAttribute("posts") Posts posts
+    public String postsCreate(String title, String content, String writer, Model model) {
+        Posts posts = postsCreateService.contentSave(title,content, writer);
+        // 파일 업로드 작동 안함. html 깨져버림.
+        //FileUpload postsCreate = postsCreateService.contentCreate(title,content,writer,posts);
+        //model.addAttribute("uploadedFiles", postsCreate.getUploadFiles());
+        //model.addAttribute("failedFiles",postsCreate.getFailedFiles());
         model.addAttribute("posts", posts);
         return "redirect:/kr/board";
     }
