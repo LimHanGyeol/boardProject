@@ -65,7 +65,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/kr/duo/request" class="nav-link pl-2">
+                    <a href="/kr/board" class="nav-link pl-2">
                         <i class="material-icons py-1">sports_kabaddi</i>
                         영웅 밸런스 토론장
                     </a>
@@ -154,100 +154,14 @@
                         </div>
                     </div>
                     <div class="col-12 col-lg-6 px-0">
+                        <div>인기글</div>
+                    </div>
+                    <div class="col-12 col-lg-6 px-0">
                         <div>패치노트</div>
-
-                        <!--<select class="form-control selectpicker my-0" data-style="btn btn-link gg-select"-->
-                        <!--id="duoRequestMatchCategorySelect">-->
-
-                        <!--<option value="SoloRank">-->
-                        <!--솔로랭크-->
-                        <!--</option>-->
-
-                        <!--<option value="FreeRank">-->
-                        <!--자유랭크-->
-                        <!--</option>-->
-
-                        <!--<option value="Normal">-->
-                        <!--일반-->
-                        <!--</option>-->
-
-                        <!--<option value="Aram">-->
-                        <!--칼바람-->
-                        <!--</option>-->
-
-                        <!--</select>-->
                     </div>
                     <div class="col-12 col-lg-6 px-0">
                         <div>영웅 밸런스 토론</div>
-                        <!--<select class="form-control selectpicker my-0" data-style="btn btn-link gg-select"-->
-                        <!--id="duoRequestLaneSelect">-->
-                        <!--<option value="Any">포지션 상관 없이 구함</option>-->
-
-                        <!--<option value="Top">-->
-                        <!--탑 구함-->
-                        <!--</option>-->
-
-                        <!--<option value="Jug">-->
-                        <!--정글 구함-->
-                        <!--</option>-->
-
-                        <!--<option value="Mid">-->
-                        <!--미드 구함-->
-                        <!--</option>-->
-
-                        <!--<option value="Adc">-->
-                        <!--원딜 구함-->
-                        <!--</option>-->
-
-                        <!--<option value="Sup">-->
-                        <!--서폿 구함-->
-                        <!--</option>-->
-
-                        <!--</select>-->
                     </div>
-                    <!--<div class="col-12 col-lg-6 px-0">-->
-                    <!--<select class="form-control selectpicker my-0" data-style="btn btn-link gg-select"-->
-                    <!--id="duoRequestExpirationSelect">-->
-                    <!--<option value="15">15분 내 친구 신청 가능</option>-->
-                    <!--<option value="30">30분 내 친구 신청 가능</option>-->
-                    <!--<option value="60">1시간 내 친구 신청 가능</option>-->
-                    <!--<option value="120">2시간 내 친구 신청 가능</option>-->
-                    <!--<option value="180">3시간 내 친구 신청 가능</option>-->
-                    <!--<option value="360">6시간 내 친구 신청 가능</option>-->
-                    <!--<option value="1440" selected>24시간 내 친구 신청 가능</option>-->
-                    <!--</select>-->
-                    <!--</div>-->
-                    <!--<div class="col-12 col-lg-6 px-0 d-flex align-items-center justify-content-end">-->
-                    <!--<div class="togglebutton mt-2">-->
-                    <!--<label class="mb-0">-->
-                    <!--<span class="d-inline gg-text-form">보이스</span>-->
-                    <!--<input id="duoRequestVoiceCheck" type="checkbox">-->
-                    <!--<span class="toggle mr-0"></span>-->
-                    <!--</label>-->
-                    <!--</div>-->
-                    <!--</div>-->
-
-                    <!--<div class="col-12 px-0 mt-3">-->
-                    <!--<div class="input-group">-->
-                    <!--<input id="duoRequestSummonerNameText" type="text" value="" class="form-control border-0"-->
-                    <!--placeholder="소환사명" required>-->
-                    <!--<div class="invalid-feedback">-->
-                    <!--YOUR.GG에 등록된 소환사명을 입력해주세요.-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="col-12 px-0">-->
-                    <!--<div class="input-group">-->
-                    <!--<textarea class="form-control" id="duoRequestDescText" maxlength="200" rows="2"-->
-                    <!--placeholder="200자 이내 내용" required></textarea>-->
-                    <!--<div class="invalid-feedback">-->
-                    <!--내용을 입력해주세요.-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="col-12 px-0 bg-white">-->
-                    <!--<button id="duoRequestBtn" type="submit" class="btn btn-info rounded-0">등록</button>-->
-                    <!--</div>-->
                 </div>
             </div>
             <div class="col-lg-2 bg-white"></div>
@@ -283,11 +197,7 @@
                         <div class="px-2">전체글보기</div>
                     </div>
                 </div>
-
                 <!--듀오 스피너 메뉴. 이걸 글작성 버튼 등으로 바꾸기-->
-                <!--<div class="col-12 px-0 d-flex flex-wrap flex-lg-nowrap align-items-center">-->
-
-                <!--</div>-->
                 <div id="content" class="col-12 collapse">
                     <div class="col-12 px-0 mb-4 bg-white d-flex justify-content-end">
                         <a href="/kr/board/posts"><span class="btn btn-info btn-sm rounded-0">글작성</span></a>
@@ -295,19 +205,17 @@
 
                     <!--게시물 컨텐츠 영역-->
                     <!--아이템 시작-->
-
                     <div id="duoRequestArea" class="col-12 px-0 gg-request-areas">
-                        <th:block th:each="board:${boardList}">
+                        <th:block th:each="posts:${postsList}">
                             <div class="d-flex flex-column w-100 gg-action p-2">
                                 <!--data-event="DuoRequestProfile"-->
                                 <!--data-href="/kr/profile/%EA%B2%B0%EC%9D%98 %EB%BC%88%EA%B5%AD%EB%AC%BC">-->
                                 <div class="d-flex align-items-center gg-duo-request-list-title">
-                                    <!--<div class="aa">솔로랭크 골드1</div>-->
                                     <div class="px-1"></div>
                                     <div class="d-flex align-items-center">
                                         <div>
-                                            <a th:href="'/kr/board/posts/'+${board.no}"><h6
-                                                    th:text="${board.title}"></h6></a>
+                                            <a th:href="'/kr/board/posts/'+${posts.no}"><h6
+                                                    th:text="${posts.title}"></h6></a>
                                         </div>
                                     </div>
                                     <div class="px-1"></div>
@@ -315,19 +223,21 @@
                                     <div class="px-1"></div>
                                 </div>
                                 <div class="d-flex gg-duo-request-text text-secondary text-left py-2"
-                                     th:text="${board.content}">
+                                     th:text="${posts.content}">
 
                                 </div>
                                 <div class="d-flex gg-text-large justify-content-end pt-2">
                                     <div><i class="material-icons gg-text-large">person</i>
-                                        <span class="gg-text-normal-color" th:text="${board.writer}"></span>
+                                        <span class="gg-text-normal-color" th:text="${posts.writer}"></span>
                                     </div>
                                     <div class="px-2"></div>
-                                    <div th:text="${board.contentDate}"><i
-                                            class="material-icons gg-text-large">alarm_on</i>
+                                    <div><i class="material-icons gg-text-large">alarm_on</i>
+                                        <span class="gg-text-normal-color" th:text="${posts.getContentDate()}"></span>
                                     </div>
                                 </div>
-                                <div class="d-flex justify-content-end gg-sub-description" th:text="${board.hit}"></div>
+                                <div class="d-flex gg-text-large justify-content-end pt-2"><i>Hit : </i>
+                                    <span class="gg-text-normal-color" th:text="${posts.hit}"></span>
+                                </div>
                             </div>
                             <!--아이템 끝-->
                             <!--아이템을 구분하는 여백 margin top 0.5rem-->

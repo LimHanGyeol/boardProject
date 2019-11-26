@@ -1,20 +1,19 @@
 package com.example.yourgg_limhangyeol.controller;
 
-import com.example.yourgg_limhangyeol.model.Board;
 import com.example.yourgg_limhangyeol.model.Comment;
+import com.example.yourgg_limhangyeol.model.Posts;
 import com.example.yourgg_limhangyeol.model.Result;
-import com.example.yourgg_limhangyeol.repository.BoardRepository;
-import com.example.yourgg_limhangyeol.repository.CommentRepository;
 import com.example.yourgg_limhangyeol.service.comment.CommentCreateService;
 import com.example.yourgg_limhangyeol.service.comment.CommentDeleteService;
 import com.example.yourgg_limhangyeol.service.comment.CommentUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class CommentController {
+public class ApiCommentController {
 
     @Autowired
     private CommentCreateService commentCreateService;
@@ -25,9 +24,10 @@ public class CommentController {
 
     // 댓글 작성
     @RequestMapping(method = RequestMethod.POST, value = "/kr/api/board/posts/{no}")
-    public Comment commentCreate(String commentContent) {
-        System.out.println(commentContent);
-        return commentCreateService.commentCreate(commentContent);
+    public Comment commentCreate(Long postNo, String commentContent, String commentWriter) {
+        System.out.println("postNo : " + postNo + " / " + "commentContent : " +commentContent + " / commentWriter : " + commentWriter);
+        Posts posts = commentCreateService.getPosts(postNo);
+        return commentCreateService.commentCreate(posts, commentContent, commentWriter);
     }
 
     // 댓글 수정 , produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE
