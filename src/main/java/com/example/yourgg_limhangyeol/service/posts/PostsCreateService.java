@@ -11,8 +11,8 @@ public class PostsCreateService {
     @Autowired
     private PostsRepository postsRepository;
 
-    public Posts contentCreate(String title, String content) {
-        Posts posts = new Posts(title,"null",content,"한결",1);
+    public Posts contentCreate(String title, String content, String writer) {
+        Posts posts = new Posts(title,"null",content,writer,1);
         return postsRepository.save(posts);
     }
 

@@ -20,24 +20,19 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_no")
-    @JsonProperty
     private Long commentNo;
 
     @ManyToOne(targetEntity = Posts.class)
     @JoinColumn(name = "posts_no")
-    @JsonProperty
     private Posts posts;
 
     @Column(name = "comment")
-    @JsonProperty
     private String comment;
 
     @Column(name = "comment_date")
-    @JsonProperty
     private LocalDateTime commentDate;
 
     @Column(name = "comment_writer")
-    @JsonProperty
     private String commentWriter;
 
     public Comment(Posts posts, String comment, String commentWriter) {

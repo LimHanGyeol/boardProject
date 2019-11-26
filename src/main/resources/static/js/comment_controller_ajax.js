@@ -27,7 +27,7 @@ function onCommentCreateError() {
 function onCommentCreateSuccess(data) {
     console.log("success data : " + data);
     var commentTemplate = $("#commentCreateTemplate").html();
-    var template = commentTemplate.format(data.commentNo, data.postsNo, data.comment, data.getFormattedCreateDate(), data.commentWriter);
+    var template = commentTemplate.format(data.commentNo, data.postsNo, data.comment, data.commentDate, data.commentWriter);
     $(".commentTitle").append(template);
     $("#commentContent").val("");
 }

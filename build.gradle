@@ -30,6 +30,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     // Maria db
     implementation 'org.mariadb.jdbc:mariadb-java-client'
+    // ModelMapper
+    // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+    compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.5'
+
 }
 
 test {

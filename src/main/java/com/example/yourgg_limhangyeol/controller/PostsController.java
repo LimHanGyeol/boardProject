@@ -1,11 +1,14 @@
 package com.example.yourgg_limhangyeol.controller;
 
+import com.example.yourgg_limhangyeol.dto.CommentDto;
+import com.example.yourgg_limhangyeol.dto.PostsDto;
 import com.example.yourgg_limhangyeol.model.Comment;
 import com.example.yourgg_limhangyeol.model.Posts;
 import com.example.yourgg_limhangyeol.service.posts.PostsCreateService;
 import com.example.yourgg_limhangyeol.service.posts.PostsDeleteService;
 import com.example.yourgg_limhangyeol.service.posts.PostsReadService;
 import com.example.yourgg_limhangyeol.service.posts.PostsUpdateService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -34,9 +37,8 @@ public class PostsController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/kr/board/posts")
-    public String postsCreate(String title, String content, Model model) {
-        System.out.println(title);
-        Posts posts = postsCreateService.contentCreate(title,content);
+    public String postsCreate(String title, String content,String writer, Model model) {
+        Posts posts = postsCreateService.contentCreate(title,content, writer);
         model.addAttribute("posts", posts);
         return "redirect:/kr/board";
     }
@@ -44,7 +46,7 @@ public class PostsController {
     @RequestMapping(method = RequestMethod.GET, value = "/kr/board/posts/{no}")
     public String postsDetailPage(@PathVariable Long no, Model model) {
         Posts posts = postsReadService.getContentPage(no);
-        List<Comment> commentToPosts = postsReadService.getCommentList(no);
+        List<CommentDto> commentToPosts = postsReadService.getCommentList(no);
         model.addAttribute("posts", posts);
         model.addAttribute("commentList", commentToPosts);
         return "posts_read";

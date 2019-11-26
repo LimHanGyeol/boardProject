@@ -1,5 +1,6 @@
 package com.example.yourgg_limhangyeol;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,14 @@ public class YourggLimhangyeolApplication {
     public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
         HiddenHttpMethodFilter filter = new HiddenHttpMethodFilter();
         return filter;
+    }
+
+    /**
+     * Model Mapper
+     */
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 
 }
