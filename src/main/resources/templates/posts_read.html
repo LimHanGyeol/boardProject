@@ -65,7 +65,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/kr/duo/request" class="nav-link pl-2">
+                    <a href="/kr/board" class="nav-link pl-2">
                         <i class="material-icons py-1">sports_kabaddi</i>
                         영웅 밸런스 토론장
                     </a>
@@ -150,26 +150,26 @@
                 <div class="col-12 px-0">
                     <div class="gg-large-box-title col-12 px-0 d-flex align-items-center justify-content-start">
                         <div><i class="material-icons">menu_book</i></div>
-                        <div class="px-2 gg-important-text" id="title2" th:text="${board.title}+' | 영웅 밸런스 토론'"></div>
+                        <div class="px-2 gg-important-text" id="title2" th:text="${posts.title}+' | 영웅 밸런스 토론'"></div>
                     </div>
                 </div>
                 <!--작성자-->
                 <div class="col-12 px-0 mt-3">
-                    <div class="input-group border-0" id="writer" th:name="writer" th:text="${board.writer}">
+                    <div class="input-group border-0" id="writer" th:name="writer" th:text="${posts.writer}">
                     </div>
                 </div>
                 <!--내용-->
                 <div class="col-12 px-0">
-                    <div class="input-group" id="content" name="content" th:text="${board.content}">
+                    <div class="input-group" id="content" name="content" th:text="${posts.content}">
 
                     </div>
                 </div>
 
-                <form class="form-delete col-12 px-0 bg-white" th:action="'/kr/board/posts/'+${board.no}" method="post">
+                <form class="form-delete col-12 px-0 bg-white" th:action="'/kr/board/posts/'+${posts.no}" method="post">
                     <div>
                         <a id="PreviousBtn" class="btn btn-info rounded-0" href="/kr/board">목록</a>
                         <a id="contentUpdateBtn" class="btn btn-info rounded-0"
-                           th:href="'/kr/board/posts/'+${board.no}+'/revision'">수정</a>
+                           th:href="'/kr/board/posts/'+${posts.no}+'/revision'">수정</a>
                         <input type="hidden" name="_method" value="DELETE">
                         <button id="contentDeleteBtn" type="submit" class="btn btn-info rounded-0">삭제</button>
                     </div>
@@ -200,33 +200,34 @@
                             <!--삭제하면 commentBox 범위의 article이 삭제됨-->
                             <article class="commentBox">
                                 <div class="d-flex flex-column w-100 gg-action p-2">
-                                    <div id="commentContentDiv" th:name="commentContentDiv"
-                                         class="d-flex gg-duo-request-text text-secondary text-left py-2 commentContentDiv">
-                                        내용
+                                    <div th:id="'commentContentDiv'+${comment.commentNo}" th:name="commentContentDiv"
+                                         class="d-flex gg-duo-request-text text-secondary text-left py-2 commentContentDiv" th:text="${comment.comment}">
                                     </div>
                                     <!--commentContent 가 textarea의 name-->
-                                    <textarea id="commentContentTextarea" name="commentContentUpdate"
+                                    <textarea th:id="'commentContentTextarea'+${comment.commentNo}" name="commentContentUpdate"
                                               style="display: none"
                                               class="form-control mr-0 commentContentTextarea" maxlength="200" rows="2"
                                               placeholder="200자 이내 내용" required th:text="내용"></textarea>
 
                                     <div class="d-flex gg-text-large justify-content-end pt-2">
                                         <div><i class="material-icons gg-text-large">person</i>
-                                            <span class="gg-text-normal-color">유저명</span>
+                                            <span class="gg-text-normal-color" th:text="${comment.commentWriter}"></span>
                                         </div>
                                         <div class="px-2"></div>
-                                        <div><i class="material-icons gg-text-large">alarm_on</i>등록 시간</div>
+                                        <div><i class="material-icons gg-text-large">alarm_on</i>
+                                            <span class="gg-text-normal-color"  th:text="${comment.getCommentDate()}"></span>
+                                        </div>
                                         <div class="px-2"></div>
-                                        <div><a class="commentUpdateBtn" th:value="'{0}'" style="display: inline">
+                                        <div><a class="commentUpdateBtn" th:value="${comment.commentNo}" style="display: inline">
                                             <i class="material-icons gg-text-large">edit</i>수정</a></div>
 
-                                        <div><a class="commentUpdateComplateBtn" th:value="'{0}'" style="display: none"
-                                                th:href="'/kr/api/board/posts/'+${board.no}+'/comment/{0}'"><i
+                                        <div><a class="commentUpdateComplateBtn" th:value="${comment.commentNo}" style="display: none"
+                                                th:href="'/kr/api/board/posts/'+${posts.no}+'/comment/'+${comment.commentNo}"><i
                                                 class="material-icons gg-text-large">edit</i>완료</a></div>
 
                                         <div class="px-2"></div>
                                         <div><a class="commentDeleteBtn" style="display: inline"
-                                                th:href="'/kr/api/board/posts/'+${board.no}+'/comment/{0}'"><i
+                                                th:href="'/kr/api/board/posts/'+${posts.no}+'/comment/'+${comment.commentNo}"><i
                                                 class="material-icons gg-text-large">delete</i>삭제</a></div>
 
                                         <div><a class="commentCancelBtn" th:value="'{0}'" style="display: none"><i
@@ -240,15 +241,27 @@
                     <!--댓글 아이템 끝-->
                 </div>
                 <!--댓글 작성 폼-->
+                <div class="gg-thin-line my-2"></div>
                 <div id="commentResiterArea" class="col-12 px-0 mb-4">
                     <form id="commentForm" class="commentCreate" method="post"
-                          th:action="'/kr/api/board/posts/'+${board.no}">
+                          th:action="'/kr/api/board/posts/'+${posts.no}">
+
+                        <div class="col-4 px-0 mt-3">
+                            <div class="input-group">
+                                <input id="commentWriter" name="commentWriter" type="text" value="" class="form-control border-0"
+                                       placeholder="소환사명" required>
+                                <div class="invalid-feedback">
+                                    YOUR.GG에 등록된 소환사명을 입력해주세요.
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-12 px-0">
                             <div class="input-group">
                                 <textarea id="commentContent" name="commentContent" form="commentForm"
                                           th:value="comment"
                                           class="form-control mr-2" maxlength="200" rows="2"
                                           placeholder="200자 이내 내용" required></textarea>
+                                <input type="hidden" name="postNo" th:value="${posts.no}">
                                 <button id="commentCreateBtn" type="submit" data-next-page="2"
                                         class="btn btn-info rounded-0 ">댓글등록
                                 </button>
@@ -308,12 +321,12 @@
                      <i class="material-icons gg-text-large">edit</i>수정</a></div>
 
                 <div><a class="commentUpdateComplateBtn" th:value="'{0}'" style="display: none"
-                        th:href="'/kr/api/board/posts/'+${board.no}+'/comment/{0}'"><i
+                        th:href="'/kr/api/board/posts/'+${posts.no}+'/comment/{0}'"><i
                         class="material-icons gg-text-large">edit</i>완료</a></div>
 
                 <div class="px-2"></div>
                 <div><a class="commentDeleteBtn" style="display: inline"
-                        th:href="'/kr/api/board/posts/'+${board.no}+'/comment/{0}'"><i
+                        th:href="'/kr/api/board/posts/'+${posts.no}+'/comment/{0}'"><i
                         class="material-icons gg-text-large">delete</i>삭제</a></div>
 
                 <div><a class="commentCancelBtn" style="display: none"><i

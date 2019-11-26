@@ -1,9 +1,12 @@
 package com.example.yourgg_limhangyeol.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javafx.geometry.Pos;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Getter
@@ -20,9 +23,10 @@ public class Comment {
     @JsonProperty
     private Long commentNo;
 
-    @Column(name = "posts_no")
+    @ManyToOne(targetEntity = Posts.class)
+    @JoinColumn(name = "posts_no")
     @JsonProperty
-    private int postsNo;
+    private Posts posts;
 
     @Column(name = "comment")
     @JsonProperty
@@ -30,20 +34,29 @@ public class Comment {
 
     @Column(name = "comment_date")
     @JsonProperty
-    private String commentDate;
+    private LocalDateTime commentDate;
 
     @Column(name = "comment_writer")
     @JsonProperty
     private String commentWriter;
 
-    public Comment(int postsNo, String comment, String commentDate, String commentWriter) {
-        this.postsNo = postsNo;
+    public Comment(Posts posts, String comment, String commentWriter) {
+        this.posts = posts;
         this.comment = comment;
-        this.commentDate = commentDate;
+        this.commentDate = LocalDateTime.now();
         this.commentWriter = commentWriter;
+    }
+
+    public String getCommentDate() {
+        if (commentDate == null) {
+            return "";
+        }
+        return commentDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd. HH:mm"));
     }
 
     public void commentUpdate(String comment) {
         this.comment = comment;
     }
+
+
 }

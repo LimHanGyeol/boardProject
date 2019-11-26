@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Getter
@@ -11,8 +12,8 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @NoArgsConstructor
 @ToString
-@Table(name = "board")
-public class Board {
+@Table(name = "posts")
+public class Posts {
     // no title writer content contentDate hit image
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,19 +33,25 @@ public class Board {
     private String writer;
 
     @Column(name = "content_date")
-    private String contentDate;
+    private LocalDateTime contentDate;
 
     @Column(name = "hit")
     private int hit;
 
-
-    public Board(String title, String image, String content, String writer, String contentDate, int hit) {
+    public Posts(String title, String image, String content, String writer, int hit) {
         this.title = title;
         this.image = image;
         this.content = content;
         this.writer = writer;
-        this.contentDate = contentDate;
+        this.contentDate = LocalDateTime.now();
         this.hit = hit;
+    }
+
+    public String getContentDate() {
+        if (contentDate == null) {
+            return "";
+        }
+        return contentDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd. HH:mm"));
     }
 
     public void boardUpdate(String title, String content) {
@@ -57,4 +64,6 @@ public class Board {
         int hit = this.hit += 1;
         return hit;
     }
+
+
 }

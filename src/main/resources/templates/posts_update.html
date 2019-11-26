@@ -65,7 +65,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/kr/duo/request" class="nav-link pl-2">
+                    <a href="/kr/board" class="nav-link pl-2">
                         <i class="material-icons py-1">sports_kabaddi</i>
                         영웅 밸런스 토론장
                     </a>
@@ -143,45 +143,48 @@
 <!--메인 컨테이너 div / 메인 광고바의 자연스러운 색을 위해 흰색 배경색 지정-->
 <div class="container-fluid gg-text-normal bg-white">
 
-        <div class="row gg-division">
-            <div class="col-lg-2 bg-white"></div>
-            <div class="col-12 col-lg-8">
-                <div class="row gg-box">
-                    <div class="col-12 px-0">
-                        <div class="gg-large-box-title col-12 px-0 d-flex align-items-center justify-content-start">
-                            <div><i class="material-icons">create</i></div>
-                            <div class="px-2 gg-important-text">수정하기</div>
-                        </div>
+    <div class="row gg-division">
+        <div class="col-lg-2 bg-white"></div>
+        <div class="col-12 col-lg-8">
+            <div class="row gg-box">
+                <div class="col-12 px-0">
+                    <div class="gg-large-box-title col-12 px-0 d-flex align-items-center justify-content-start">
+                        <div><i class="material-icons">create</i></div>
+                        <div class="px-2 gg-important-text">수정하기</div>
                     </div>
-                    <form class="col-12 px-0 mb-0" autocomplete="off" novalidate method="post" th:action="'/kr/board/posts/'+${board.no}">
+                </div>
+
+                <form class="col-12 px-0 mb-0" autocomplete="off" novalidate method="post"
+                      th:action="'/kr/board/posts/'+${posts.no}">
+                    <input type="hidden" name="_method" value="PUT">
                     <!--카테고리-->
                     <div class="col-12 col-lg-6 px-0">
                         <select class="form-control selectpicker my-0" data-style="btn btn-link gg-select"
-                        id="duoRequestMatchCategorySelect">
-                        <option value="SoloRank">
-                        영웅 밸런스 토론
-                        </option>
-                        <option value="FreeRank">
-                        패치노트
-                        </option>
+                                id="duoRequestMatchCategorySelect">
+                            <option value="SoloRank">
+                                영웅 밸런스 토론
+                            </option>
+                            <option value="FreeRank">
+                                패치노트
+                            </option>
                         </select>
                     </div>
                     <!--작성자-->
                     <div class="col-12 px-0 mt-3">
-                    <div class="input-group">
-                    <input id="writer" name="writer" type="text" value="" class="form-control border-0"
-                    placeholder="소환사명" th:value="${board.writer}" required>
-                    <div class="invalid-feedback">
-                    YOUR.GG에 등록된 소환사명을 입력해주세요.
-                    </div>
-                    </div>
+                        <div class="input-group">
+                            <input id="writer" name="writer" type="text" value="" class="form-control border-0"
+                                   placeholder="소환사명" th:value="${posts.writer}" required>
+                            <div class="invalid-feedback">
+                                YOUR.GG에 등록된 소환사명을 입력해주세요.
+                            </div>
+                        </div>
                     </div>
 
                     <!--제목-->
                     <div class="col-12 px-0 mt-3">
                         <div class="input-group">
                             <input id="title" name="title" type="text" value="" class="form-control border-0"
-                                   placeholder="제목" th:value="${board.title}" required>
+                                   placeholder="제목" th:value="${posts.title}" required>
                             <div class="invalid-feedback">
                                 제목을 입력해주세요.
                             </div>
@@ -190,24 +193,25 @@
 
                     <!--내용-->
                     <div class="col-12 px-0">
-                    <div class="input-group">
+                        <div class="input-group">
                     <textarea class="form-control mt-2" id="content" name="content" maxlength="1000" rows="2"
-                    placeholder="1000자 이내 내용을 입력해주세요." th:text="${board.content}"></textarea>
-                    <div class="invalid-feedback">
-                    내용을 입력해주세요.
-                    </div>
-                    </div>
+                              placeholder="1000자 이내 내용을 입력해주세요." th:text="${posts.content}"></textarea>
+                            <div class="invalid-feedback">
+                                내용을 입력해주세요.
+                            </div>
+                        </div>
                     </div>
 
                     <div class="col-12 px-0 bg-white">
-                        <a id="PreviousBtn" class="btn btn-info rounded-0" th:href="'/kr/board/posts/'+${board.no}">이전으로</a>
+                        <a id="PreviousBtn" class="btn btn-info rounded-0"
+                           th:href="'/kr/board/posts/'+${posts.no}">이전으로</a>
                         <button id="contentCreateBtn" type="submit" class="btn btn-info rounded-0">수정</button>
                     </div>
-                    </form>
-                </div>
+                </form>
             </div>
-            <div class="col-lg-2 bg-white"></div>
         </div>
+        <div class="col-lg-2 bg-white"></div>
+    </div>
 
 
     <!--메인 광고바-->
@@ -560,119 +564,119 @@
 </script>
 
 <!--<script type="text/javascript">-->
-    <!--var duoRequestListClientCacheKey = "duoRequestList";-->
-    <!--var queryString = '';-->
+<!--var duoRequestListClientCacheKey = "duoRequestList";-->
+<!--var queryString = '';-->
 
-    <!--var duoRequestList = window.sessionStorage.getItem(duoRequestListClientCacheKey);-->
-    <!--if (duoRequestList) {-->
-        <!--$('#content').html(duoRequestList);-->
-        <!--window.sessionStorage.removeItem(duoRequestListClientCacheKey);-->
-    <!--}-->
+<!--var duoRequestList = window.sessionStorage.getItem(duoRequestListClientCacheKey);-->
+<!--if (duoRequestList) {-->
+<!--$('#content').html(duoRequestList);-->
+<!--window.sessionStorage.removeItem(duoRequestListClientCacheKey);-->
+<!--}-->
 
-    <!--$("#content").show();-->
+<!--$("#content").show();-->
 
-    <!--$(window).on("load", function () {-->
-        <!--$("form").submit(function (e) {-->
-            <!--var formValidity = this.checkValidity();-->
-            <!--if (formValidity) {-->
-                <!--var summonerNameInput = $("#duoRequestSummonerNameText");-->
-                <!--var checkUrl = urlPrefix + "/profile/namecheck/" + summonerNameInput.val();-->
-                <!--$.ajax({-->
-                    <!--url: checkUrl, success: function (result) {-->
-                        <!--showModal();-->
-                        <!--summonerNameInput.addClass("is-valid")-->
-                        <!--summonerNameInput.removeClass("is-invalid")-->
-                        <!--$.ajax({-->
-                            <!--type: "POST",-->
-                            <!--url: urlPrefix + "/duo/request",-->
-                            <!--data: {-->
-                                <!--mc: $("#duoRequestMatchCategorySelect").val(),-->
-                                <!--l: $("#duoRequestLaneSelect").val(),-->
-                                <!--e: $("#duoRequestExpirationSelect").val(),-->
-                                <!--n: $("#duoRequestSummonerNameText").val(),-->
-                                <!--d: $("#duoRequestDescText").val(),-->
-                                <!--v: $("#duoRequestVoiceCheck").prop("checked")-->
-                            <!--},-->
-                            <!--success: function (result) {-->
-                                <!--interaction("Submit-DuoRequest");-->
-                                <!--location.reload();-->
-                            <!--},-->
-                            <!--error: function (rresult) {-->
-                                <!--hideModal();-->
-                            <!--}-->
-                        <!--});-->
-                    <!--}, error: function (result) {-->
-                        <!--summonerNameInput.removeClass("is-valid")-->
-                        <!--summonerNameInput.addClass("is-invalid")-->
-                    <!--}-->
-                <!--});-->
+<!--$(window).on("load", function () {-->
+<!--$("form").submit(function (e) {-->
+<!--var formValidity = this.checkValidity();-->
+<!--if (formValidity) {-->
+<!--var summonerNameInput = $("#duoRequestSummonerNameText");-->
+<!--var checkUrl = urlPrefix + "/profile/namecheck/" + summonerNameInput.val();-->
+<!--$.ajax({-->
+<!--url: checkUrl, success: function (result) {-->
+<!--showModal();-->
+<!--summonerNameInput.addClass("is-valid")-->
+<!--summonerNameInput.removeClass("is-invalid")-->
+<!--$.ajax({-->
+<!--type: "POST",-->
+<!--url: urlPrefix + "/duo/request",-->
+<!--data: {-->
+<!--mc: $("#duoRequestMatchCategorySelect").val(),-->
+<!--l: $("#duoRequestLaneSelect").val(),-->
+<!--e: $("#duoRequestExpirationSelect").val(),-->
+<!--n: $("#duoRequestSummonerNameText").val(),-->
+<!--d: $("#duoRequestDescText").val(),-->
+<!--v: $("#duoRequestVoiceCheck").prop("checked")-->
+<!--},-->
+<!--success: function (result) {-->
+<!--interaction("Submit-DuoRequest");-->
+<!--location.reload();-->
+<!--},-->
+<!--error: function (rresult) {-->
+<!--hideModal();-->
+<!--}-->
+<!--});-->
+<!--}, error: function (result) {-->
+<!--summonerNameInput.removeClass("is-valid")-->
+<!--summonerNameInput.addClass("is-invalid")-->
+<!--}-->
+<!--});-->
 
-            <!--}-->
+<!--}-->
 
-            <!--e.preventDefault();-->
-            <!--e.stopPropagation();-->
-        <!--});-->
+<!--e.preventDefault();-->
+<!--e.stopPropagation();-->
+<!--});-->
 
-        <!--$(".gg-request-areas").on("click", function (e) {-->
-            <!--var target = $(e.target);-->
-            <!--var listItem = target.closest(".gg-action");-->
-            <!--var link = listItem.data("href");-->
-            <!--var event = listItem.data("event");-->
-            <!--if (event != undefined) {-->
-                <!--interaction("Link-" + event);-->
-            <!--}-->
-            <!--if (link != undefined) {-->
-                <!--window.sessionStorage.setItem(duoRequestListClientCacheKey, $("#content").html());-->
-                <!--location.href = link;-->
-                <!--e.stopPropagation();-->
-            <!--}-->
-        <!--});-->
+<!--$(".gg-request-areas").on("click", function (e) {-->
+<!--var target = $(e.target);-->
+<!--var listItem = target.closest(".gg-action");-->
+<!--var link = listItem.data("href");-->
+<!--var event = listItem.data("event");-->
+<!--if (event != undefined) {-->
+<!--interaction("Link-" + event);-->
+<!--}-->
+<!--if (link != undefined) {-->
+<!--window.sessionStorage.setItem(duoRequestListClientCacheKey, $("#content").html());-->
+<!--location.href = link;-->
+<!--e.stopPropagation();-->
+<!--}-->
+<!--});-->
 
-        <!--$("#duoRequestSearchBtn").on("click", function () {-->
-            <!--interaction("Search-DuoRequest")-->
-            <!--var matchCategory = $("#duoRequestListMatchCategorySelect").val();-->
-            <!--var tier = $("#duoRequestListTierSelect").val();-->
-            <!--var lane = $("#duoRequestListLaneSelect").val();-->
+<!--$("#duoRequestSearchBtn").on("click", function () {-->
+<!--interaction("Search-DuoRequest")-->
+<!--var matchCategory = $("#duoRequestListMatchCategorySelect").val();-->
+<!--var tier = $("#duoRequestListTierSelect").val();-->
+<!--var lane = $("#duoRequestListLaneSelect").val();-->
 
-            <!--var url = urlPrefix + "/duo/request?more=true&mc=" + matchCategory + "&t=" + tier + "&l=" + lane;-->
-            <!--showModal();-->
-            <!--$.ajax({-->
-                <!--url: url, success: function (result) {-->
-                    <!--$("#duoRequestMoreBtn").data("next-page", "1");-->
-                    <!--var area = $("#duoRequestArea");-->
-                    <!--area.empty();-->
-                    <!--area.append(result);-->
-                    <!--hideModal();-->
-                <!--}, error: function (result) {-->
-                    <!--alert(commonError);-->
-                    <!--hideModal();-->
-                <!--}-->
-            <!--});-->
-        <!--});-->
+<!--var url = urlPrefix + "/duo/request?more=true&mc=" + matchCategory + "&t=" + tier + "&l=" + lane;-->
+<!--showModal();-->
+<!--$.ajax({-->
+<!--url: url, success: function (result) {-->
+<!--$("#duoRequestMoreBtn").data("next-page", "1");-->
+<!--var area = $("#duoRequestArea");-->
+<!--area.empty();-->
+<!--area.append(result);-->
+<!--hideModal();-->
+<!--}, error: function (result) {-->
+<!--alert(commonError);-->
+<!--hideModal();-->
+<!--}-->
+<!--});-->
+<!--});-->
 
-        <!--$("#duoRequestMoreBtn").on("click", function () {-->
-            <!--interaction("More-DuoRequest")-->
-            <!--var matchCategory = $("#duoRequestListMatchCategorySelect").val();-->
-            <!--var tier = $("#duoRequestListTierSelect").val();-->
-            <!--var lane = $("#duoRequestListLaneSelect").val();-->
+<!--$("#duoRequestMoreBtn").on("click", function () {-->
+<!--interaction("More-DuoRequest")-->
+<!--var matchCategory = $("#duoRequestListMatchCategorySelect").val();-->
+<!--var tier = $("#duoRequestListTierSelect").val();-->
+<!--var lane = $("#duoRequestListLaneSelect").val();-->
 
-            <!--var page = $(this).data("next-page");-->
-            <!--var url = urlPrefix + "/duo/request?more=true&p=" + page + "&mc=" + matchCategory + "&t=" + tier + "&l=" + lane;-->
-            <!--var that = $(this);-->
-            <!--if (queryString != "") url = url + "&" + queryString;-->
-            <!--showModal();-->
-            <!--$.ajax({-->
-                <!--url: url, success: function (result) {-->
-                    <!--that.data("next-page", parseInt(that.data("next-page")) + 1);-->
-                    <!--$("#duoRequestArea").append(result)-->
-                    <!--hideModal();-->
-                <!--}, error: function (result) {-->
-                    <!--alert(commonError);-->
-                    <!--hideModal();-->
-                <!--}-->
-            <!--});-->
-        <!--});-->
-    <!--});-->
+<!--var page = $(this).data("next-page");-->
+<!--var url = urlPrefix + "/duo/request?more=true&p=" + page + "&mc=" + matchCategory + "&t=" + tier + "&l=" + lane;-->
+<!--var that = $(this);-->
+<!--if (queryString != "") url = url + "&" + queryString;-->
+<!--showModal();-->
+<!--$.ajax({-->
+<!--url: url, success: function (result) {-->
+<!--that.data("next-page", parseInt(that.data("next-page")) + 1);-->
+<!--$("#duoRequestArea").append(result)-->
+<!--hideModal();-->
+<!--}, error: function (result) {-->
+<!--alert(commonError);-->
+<!--hideModal();-->
+<!--}-->
+<!--});-->
+<!--});-->
+<!--});-->
 <!--</script>-->
 </body>
 </html>
